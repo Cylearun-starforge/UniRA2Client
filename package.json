@@ -1,0 +1,29 @@
+{
+  "name": "uni-ra2-client",
+  "description": "Unified Red Alert 2 Client launcher.",
+  "version": "0.0.0",
+  "packageManager": "pnpm@7.12.2",
+  "author": "UniRA2 Team",
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
+    "@rushstack/eslint-patch": "^1.1.4",
+    "eslint": "^8.22.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "git-cz": "^4.9.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.2",
+    "prettier": "^2.7.1",
+    "typescript": "~4.7.4",
+    "vite": "^3.0.9",
+    "vitest": "^0.23.0"
+  },
+  "lint-staged": {
+    "*.cs": "dotnet format --no-restore --include",
+    "*.{js, ts, vue}": ["prettier --write", "eslint --fix"]
+  },
+  "husky":{
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -e $GIT_PARAMS"
+  }
+}
