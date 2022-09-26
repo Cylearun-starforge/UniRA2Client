@@ -9,6 +9,10 @@
       "name": "Client UI"
     },
     {
+      "path": "UnitTests",
+      "name": "Client UnitTest"
+    },
+    {
       "path": ".",
       "name": "Workspace"
     },

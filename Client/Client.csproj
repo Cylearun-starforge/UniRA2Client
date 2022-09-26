@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -23,15 +23,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EditorConfigFiles Include=".editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ApplicationDefinition Include="Application.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WebResources\" />
+  </ItemGroup>
 
 
 </Project>
