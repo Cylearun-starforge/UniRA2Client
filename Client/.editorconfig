@@ -1,8 +1,16 @@
 ###############################
 # Core EditorConfig Options   #
 ###############################
+
+root = true
+# All files
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+
 # XML project files
-[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
+[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj,esproj}]
 indent_size = 2
 
 # XML config files
@@ -60,6 +68,7 @@ dotnet_naming_symbols.constant_fields.applicable_kinds            = field
 dotnet_naming_symbols.constant_fields.applicable_accessibilities  = *
 dotnet_naming_symbols.constant_fields.required_modifiers          = const
 dotnet_code_quality_unused_parameters = all:suggestion
+end_of_line = lf
 ###############################
 # C# Coding Conventions       #
 ###############################
