@@ -12,7 +12,7 @@ public static class SingletonContext
         var ctor = type.GetConstructor(new Type[] { });
         if (ctor == null)
         {
-            throw new ArgumentException("Only Empty Constructor is Allowed");
+            throw new ArgumentException($"Only non-param constructor is allowed. Type: {type.FullName}");
         }
 
         return (T)ctor.Invoke(null);
