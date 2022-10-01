@@ -21,6 +21,7 @@
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
-    "outDir": "typing"
+    "outDir": "typing",
+    "moduleResolution": "node"
   },
 }

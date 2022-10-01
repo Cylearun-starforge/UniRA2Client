@@ -26,5 +26,9 @@
       "default": "./dist/runtime.js"
     },
     "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com"
   }
 }
