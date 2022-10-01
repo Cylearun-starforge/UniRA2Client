@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="WebResources\" />
-    <Folder Include="WebRuntime\" />
   </ItemGroup>
 
 

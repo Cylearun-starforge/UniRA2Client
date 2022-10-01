@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.26-alpha">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>47fa798d-3708-452d-8de4-8cc2ef440481</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <BuildCommand>pnpm build</BuildCommand>
+  </PropertyGroup>
+</Project>

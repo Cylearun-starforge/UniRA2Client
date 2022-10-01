@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using UniRA2.Client.WebResources;
@@ -13,8 +14,8 @@ public static class WebView2Extension
             new CoreWebView2EnvironmentOptions("-allow-file-access-from-files"));
         await webView2.EnsureCoreWebView2Async(env);
 
-        InitializeWebRuntime(webView2.CoreWebView2);
         webView2.Source = SingletonContext.Get<WebResourcesManager>().MainWindowWebUrl;
+        InitializeWebRuntime(webView2.CoreWebView2);
     }
 
     public static void InitializeWebRuntime(this CoreWebView2 webView2)

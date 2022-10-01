@@ -9,6 +9,10 @@
       "name": "Client UI"
     },
     {
+      "path": "ClientWebRuntime",
+      "name": "Web Core"
+    },
+    {
       "path": "UnitTests",
       "name": "Client UnitTest"
     },
@@ -39,6 +43,8 @@
     "files.exclude": {
       "Client": true,
       "ClientUI": true,
+      "ClientWebRuntime": true,
+      "UnitTests": true,
     },
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,

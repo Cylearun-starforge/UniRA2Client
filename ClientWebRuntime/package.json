@@ -1,0 +1,30 @@
+{
+  "name": "@uni-ra2/client-runtime",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite build --mode development",
+    "build": "vite build --mode production",
+    "test:unit": "vitest",
+    "type-check": "tsc  --composite false",
+    "lint": "eslint .  --fix --ignore-path .gitignore"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.56",
+    "rollup-plugin-copy": "^3.4.0",
+    "vite-plugin-dts": "^1.6.1"
+  },
+  "files": [
+    "typing/src/index.d.ts",
+    "dist/runtime.js",
+    "package.json"
+  ],
+  "type": "module",
+  "typings": "typing/src/index.d.ts",
+  "exports": {
+    ".": {
+      "typing": "./typing/src/index.d.ts",
+      "default": "./dist/runtime.js"
+    },
+    "./package.json": "./package.json"
+  }
+}

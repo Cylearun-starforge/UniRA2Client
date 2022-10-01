@@ -1,11 +1,8 @@
 using System.Reflection;
-using System.Runtime.InteropServices;
 using Microsoft.Web.WebView2.Core;
 
 namespace UniRA2.Client.Foundations;
 
-// This attribute seems useless
-// [ClassInterface(ClassInterfaceType.AutoDispatch)]
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
 public class HostInjectAttribute : Attribute
 {
