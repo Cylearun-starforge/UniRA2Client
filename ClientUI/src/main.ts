@@ -3,7 +3,6 @@ import { createPinia } from 'pinia';
 
 import App from './App.vue';
 import router from './router';
-import { getPlatform } from '@uni-ra2/client-runtime';
 
 import './assets/main.css';
 
@@ -13,5 +12,5 @@ app.use(createPinia());
 app.use(router);
 
 app.mount('#app').$nextTick(async () => {
-  console.log('platform mode:', await getPlatform());
+  console.log('platform mode:', await UniRA2Api.getPlatform());
 });

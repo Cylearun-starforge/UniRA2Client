@@ -1,50 +1,42 @@
 using System.IO;
+using System.Text;
 using System.Text.Json.Serialization;
+using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.WinForms;
 
 namespace UniRA2.Client.WebResources;
 
 public class WebResourcesManager
 {
     public Uri MainWindowWebUrl { get; }
-    public Uri RuntimeScripts { get; }
+    public string RuntimeScripts { get; }
 
     public WebResourcesManager()
     {
 #if DEBUG
         MainWindowWebUrl = new Uri("http://127.0.0.1:5173/");
         RuntimeScripts =
-            new Uri(Path.Join(Environment.CurrentDirectory, "../../../../../ClientWebRuntime/dist/runtime.js"));
+            Path.Join(Environment.CurrentDirectory, "../../../../../ClientWebRuntime/dist/runtime.iife.js");
 #else
         MainWindowWebUrl = new Uri("./ui/index.html", UriKind.Relative);
-        RuntimeScripts = new Uri("./webRuntime/runtime.js", UriKind.Relative);
+        RuntimeScripts = Path.Join("./webRuntime/runtime.iife.js", UriKind.Relative);
 #endif
     }
 
-    public ImportMap CreateImportMap()
-    {
-        return new ImportMap {imports = {Runtime = Path.Join(Environment.CurrentDirectory, RuntimeScripts.ToString())}};
-    }
 
-    public class ImportMap
+    public static async void InjectScriptFromUri(CoreWebView2 webView, string uri)
     {
-        public struct Import
+        await using var file = File.OpenRead(uri);
+        var buffer = new byte[file.Length];
+        var _ = await file.ReadAsync(buffer);
+        var script = Encoding.UTF8.GetString(buffer);
+        try
         {
-            [JsonPropertyName("@uni-ra2/client-runtime")]
-            public string Runtime;
+            var result = await webView.ExecuteScriptAsync(script);
         }
-
-        public Import imports;
-    }
-
-    public static string InjectScriptFromUri(Uri uri)
-    {
-        var template = @"(function(document){
-const script = document.createElement('script');
-script.src = '$URI';
-script.type = 'module';
-document.head.prepend(script);
-})(document)";
-        template = template.Replace("$URI", uri.ToString());
-        return template;
+        catch (Exception e)
+        {
+            var ee = e.Message;
+        }
     }
 }

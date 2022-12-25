@@ -28,5 +28,4 @@ coverage
 *.sw?
 
 # Build results
-typing/
 dist/

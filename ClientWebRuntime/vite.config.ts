@@ -2,7 +2,6 @@ import { fileURLToPath, URL } from 'node:url';
 import { UserConfigExport } from 'vite';
 
 import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
 import copy from 'rollup-plugin-copy';
 
 export default defineConfig(configEnv => {
@@ -16,19 +15,16 @@ export default defineConfig(configEnv => {
     },
     build: {
       lib: {
-        entry: 'src/index.ts',
+        entry: 'src/index.js',
         fileName: 'runtime',
-        formats: ['es'],
+        formats: ['iife'],
+        name: 'UniRA2Api',
       },
       minify: !dev,
       sourcemap: dev ? 'inline' : false,
       outDir: 'dist',
     },
-    plugins: [
-      dts({
-        outputDir: 'typing',
-      }),
-    ],
+    plugins: [],
   };
 
   if (!dev && !isCI) {
@@ -36,7 +32,7 @@ export default defineConfig(configEnv => {
       copy({
         targets: [
           {
-            src: 'dist/runtime.js',
+            src: 'dist/runtime.iife.js',
             dest: '../Client/bin/Release/net6.0-windows/win-x64/webRuntime',
           },
         ],

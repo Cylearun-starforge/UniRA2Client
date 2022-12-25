@@ -10,20 +10,17 @@
   },
   "devDependencies": {
     "@types/node": "^16.11.56",
-    "rollup-plugin-copy": "^3.4.0",
-    "vite-plugin-dts": "^1.6.1"
+    "rollup-plugin-copy": "^3.4.0"
   },
   "files": [
-    "typing/src/index.d.ts",
-    "dist/runtime.js",
+    "typing/index.d.ts",
     "package.json"
   ],
   "type": "module",
-  "typings": "typing/src/index.d.ts",
+  "typings": "typing/index.d.ts",
   "exports": {
     ".": {
-      "typing": "./typing/src/index.d.ts",
-      "default": "./dist/runtime.js"
+      "typing": "./typing/index.d.ts"
     },
     "./package.json": "./package.json"
   },
