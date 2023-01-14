@@ -29,14 +29,8 @@ public class WebResourcesManager
         await using var file = File.OpenRead(uri);
         var buffer = new byte[file.Length];
         var _ = await file.ReadAsync(buffer);
-        var script = Encoding.UTF8.GetString(buffer);
-        try
-        {
-            var result = await webView.ExecuteScriptAsync(script);
-        }
-        catch (Exception e)
-        {
-            var ee = e.Message;
-        }
+        var script = Encoding.UTF8.GetString(buffer); 
+        await webView.ExecuteScriptAsync(script);
+        
     }
 }
