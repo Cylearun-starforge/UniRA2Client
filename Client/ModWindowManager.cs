@@ -26,12 +26,13 @@ public class ModWindowManager
         try
         {
             var pair = _modWindows.First(pair => pair.Value.IsIdleWindow);
-            return new IdleModuleWindowInfo {Guid = pair.Key, Instance = pair.Value}
+            return new IdleModuleWindowInfo {Guid = pair.Key, Instance = pair.Value};
         }
         catch (InvalidOperationException)
         {
-            var guid = ModuleWindow.CreateAndRegister();
-            var window = _modWindows[guid];
+            var window = new ModuleWindow();
+            var guid = window.WindowId;
+            _modWindows[guid] = window;
             return new IdleModuleWindowInfo {Guid = guid, Instance = window};
         }
     }

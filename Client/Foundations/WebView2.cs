@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text.Json;
+using System.Windows;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using UniRA2.Client.Data;
@@ -19,12 +20,5 @@ public static class WebView2Extension
         var resourcesManager = SingletonContext.Get<WebResourcesManager>();
 
         webView2.Source = resourcesManager.MainWindowWebUrl;
-        InitializeWebRuntime(webView2.CoreWebView2);
-    }
-
-    public static void InitializeWebRuntime(this CoreWebView2 webView2)
-    {
-        HostInjector.InjectFromAssembly(webView2, Assembly.GetExecutingAssembly());
-        WebResourcesManager.InjectScriptFromUri(webView2, SingletonContext.Get<WebResourcesManager>().RuntimeScripts);
     }
 }

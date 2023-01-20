@@ -1,9 +1,5 @@
-using System.Runtime.InteropServices;
-using UniRA2.Client.Foundations;
+namespace UniRA2.Client.WebRuntime.ModWindow;
 
-namespace UniRA2.Client.WebRuntime;
-
-[HostInject("Platform")]
 public class Info
 {
 #if DEBUG

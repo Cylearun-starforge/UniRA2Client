@@ -5,4 +5,5 @@ type WebviewPlatform = {
 
 declare var UniRA2Api: {
   getPlatform: () => Promise<WebviewPlatform>;
+  closeWindow: () => Promise<void>;
 };
