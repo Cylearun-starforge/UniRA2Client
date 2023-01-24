@@ -1,0 +1,28 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "Name": {
+            "type": "string",
+            "description": "Name of your mod/Mod 的名字"
+        },
+        "Page": {
+            "type": "string",
+            "description": "Path to your mod/Mod 的启动路径"
+        },
+        "Version": {
+            "type": "string",
+            "description": "Version of your mod/Mod 版本号"
+        },
+        "Description": {
+            "type": "string",
+            "description": "Describe your mod/Mod 介绍"
+        },
+        "HomePage": {
+            "type": "string",
+            "format": "url",
+            "description": "Url to your mod's website/Mod 官网链接"
+
+        }
+    }
+}

@@ -24,10 +24,9 @@ namespace UniRA2.Client
             if (args.Count == 1)
             {
                 var manifestPath = args[0];
-                using var file = File.OpenRead(manifestPath);
-                var manifest = JsonSerializer.Deserialize<ModManifest>(file);
+                var manifest = ModManifest.LoadFromFile(manifestPath);
                 var window = SingletonContext.Get<ModWindowManager>().GetIdle();
-                window.Instance.Start(manifest!);
+                window.Instance.Start(manifest);
             }
         }
 #endif

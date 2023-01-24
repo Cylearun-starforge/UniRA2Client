@@ -19,6 +19,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Schemas\mod-manifest.schema.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JsonSchema.Net" Version="3.3.2" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1343.22" />
   </ItemGroup>
 
@@ -30,6 +35,12 @@
 
   <ItemGroup>
     <Folder Include="WebResources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Schemas\mod-manifest.schema.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 
