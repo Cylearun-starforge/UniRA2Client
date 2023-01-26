@@ -51,6 +51,7 @@ public partial class ModuleWindow : Window
     {
         WebView.CoreWebView2.Navigate(_manifest!.Page);
 
+
 #if DEBUG
         WebView.CoreWebView2.OpenDevToolsWindow();
 #endif
@@ -59,6 +60,8 @@ public partial class ModuleWindow : Window
     public void Start(ModManifest manifest)
     {
         _manifest = manifest;
+        this.Width = _manifest.Window.InitialWidth;
+        this.Height = _manifest.Window.InitialHeight;
         this.Visibility = Visibility.Visible;
         if (_isWindowReady)
         {

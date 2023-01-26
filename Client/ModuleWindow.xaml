@@ -6,7 +6,7 @@
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
         Title="ModuleWindow" Height="450" Width="800"
-        Loaded="OnLoaded">
+        Loaded="OnLoaded" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <wv2:WebView2 Name="WebView"></wv2:WebView2>
     </DockPanel>

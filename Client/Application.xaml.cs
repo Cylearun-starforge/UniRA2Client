@@ -19,12 +19,12 @@ namespace UniRA2.Client
         }
 
 #if DEBUG
-        private void LoadTestMod(IReadOnlyList<string> args)
+        private static async void LoadTestMod(IReadOnlyList<string> args)
         {
             if (args.Count == 1)
             {
                 var manifestPath = args[0];
-                var manifest = ModManifest.LoadFromFile(manifestPath);
+                var manifest = await ModManifestHelper.LoadFromFile(manifestPath);
                 var window = SingletonContext.Get<ModWindowManager>().GetIdle();
                 window.Instance.Start(manifest);
             }
