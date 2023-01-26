@@ -9,7 +9,7 @@ public static class SingletonContext
     private static T AutoCreateInstance<T>() where T : notnull
     {
         var type = typeof(T);
-        var ctor = type.GetConstructor(new Type[] { });
+        var ctor = type.GetConstructor(Array.Empty<Type>());
         if (ctor == null)
         {
             throw new ArgumentException($"Only non-param constructor is allowed. Type: {type.FullName}");

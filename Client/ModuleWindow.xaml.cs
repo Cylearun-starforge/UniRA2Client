@@ -61,6 +61,7 @@ public partial class ModuleWindow : Window
     {
         _manifest = manifest;
         this.Width = _manifest.Window.InitialWidth;
+        this.Title = _manifest.Name;
         this.Height = _manifest.Window.InitialHeight;
         this.Visibility = Visibility.Visible;
         if (_isWindowReady)

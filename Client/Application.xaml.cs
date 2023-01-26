@@ -1,3 +1,4 @@
+using System.CommandLine;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
@@ -13,21 +14,29 @@ namespace UniRA2.Client
     {
         private void Application_OnStartup(object sender, StartupEventArgs e)
         {
+            var cmd = SingletonContext.Get<CommandLine.CommandLine>();
+            var exitCode = cmd.Parser.Invoke(e.Args);
+            if (exitCode != 0)
+            {
+                Shutdown(exitCode);
+            }
 #if DEBUG
-            LoadTestMod(e.Args);
+            HandleDevModel();
 #endif
         }
 
 #if DEBUG
-        private static async void LoadTestMod(IReadOnlyList<string> args)
+        private async void HandleDevModel()
         {
-            if (args.Count == 1)
+            var cmd = SingletonContext.Get<CommandLine.CommandLine>().Model.Dev;
+            if (cmd is null)
             {
-                var manifestPath = args[0];
-                var manifest = await ModManifestHelper.LoadFromFile(manifestPath);
-                var window = SingletonContext.Get<ModWindowManager>().GetIdle();
-                window.Instance.Start(manifest);
+                return;
             }
+
+            var manifest = await ModManifestHelper.LoadFromFile(cmd.Manifest.OpenRead());
+            var window = SingletonContext.Get<ModWindowManager>().GetIdle();
+            window.Instance.Start(manifest);
         }
 #endif
     }
