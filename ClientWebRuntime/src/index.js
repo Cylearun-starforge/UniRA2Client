@@ -15,3 +15,26 @@ export async function getPlatform() {
 export async function closeWindow() {
   await host.Window.CloseWindow();
 }
+
+class GameMap {
+  /** @type {GameMapProxy} */
+  #map;
+
+  /**
+   * @param {GameMapProxy} map
+   */
+  constructor(map) {
+    this.#map = map;
+  }
+
+  get name() {
+    return this.#map.Name;
+  }
+}
+
+export const Map = {
+  listMaps: async () => {
+    const internalMapList = await host.Map.ListMaps();
+    return internalMapList.map(map => new GameMap(map));
+  },
+};

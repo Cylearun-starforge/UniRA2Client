@@ -1,5 +1,7 @@
+using System.IO;
 using System.Security.Policy;
 using System.Windows;
+using UniRA2.Client.Data;
 using UniRA2.Client.Foundations;
 using UniRA2.Client.Schemas;
 using UniRA2.Client.WebResources;
@@ -9,7 +11,7 @@ using Window = System.Windows.Window;
 
 namespace UniRA2.Client;
 
-public partial class ModuleWindow : Window
+public partial class ModuleWindow
 {
     private ModManifest? _manifest;
     public Guid WindowId { get; }
@@ -28,7 +30,6 @@ public partial class ModuleWindow : Window
             _isWindowReady = true;
         };
     }
-
 
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
@@ -61,7 +62,7 @@ public partial class ModuleWindow : Window
     {
         _manifest = manifest;
         this.Width = _manifest.Window.InitialWidth;
-        this.Title = _manifest.Name;
+        this.Title = _manifest.Window.Title ?? _manifest.Name;
         this.Height = _manifest.Window.InitialHeight;
         this.Visibility = Visibility.Visible;
         if (_isWindowReady)
@@ -81,6 +82,20 @@ public partial class ModuleWindow : Window
     {
         this.WebView.CoreWebView2.Navigate("edge://newtab");
         Close();
+    }
+
+    public DirectoryInfo MapDirectory
+    {
+        get
+        {
+            if (_manifest is null)
+            {
+                throw new InvalidOperationException(
+                    "ModuleWindow.MapDirectory should be invoked after WindowReadyEvent");
+            }
+
+            return Directories.GetMapDir(_manifest.Name);
+        }
     }
 }
 

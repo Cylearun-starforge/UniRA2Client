@@ -15,6 +15,7 @@ public record WindowConfig
 {
     public double InitialWidth { get; set; }
     public double InitialHeight { get; set; }
+    public string? Title { get; set; }
 };
 
 public record ModManifest

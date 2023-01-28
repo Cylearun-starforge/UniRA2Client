@@ -4,7 +4,7 @@
   "properties": {
     "Name": {
       "type": "string",
-      "description": "Name of your mod/Mod 的名字"
+      "description": "Name of your mod. If `Window.Title` not presents, this field will be used as title/Mod 的名字。如果 `Window.Title` 字段不存在，这个字段也将用作窗口标题"
     },
     "Page": {
       "type": "string",
@@ -38,6 +38,10 @@
           "maximum": 1080,
           "minimum": 600,
           "description": "Initial height of the window/窗口初始高度"
+        },
+        "Title": {
+          "type": "string",
+          "description": "Title of the window/窗口标题"
         }
       },
       "required": ["InitialHeight", "InitialWidth"]
