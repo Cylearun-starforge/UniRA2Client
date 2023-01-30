@@ -6,11 +6,17 @@ public class GameMap
 {
     private readonly FileInfo _mapFileInfo;
 
-    public GameMap(FileInfo file)
+
+    public GameMap(IGrouping<string, FileInfo> mapGrouping)
     {
-        _mapFileInfo = file;
+        if (!mapGrouping.Any())
+        {
+            throw new ArgumentException("Empty grouping");
+        }
+
+        var yrmFile = mapGrouping.FirstOrDefault((file) => file!.Extension == ".yrm", null);
+        _mapFileInfo = yrmFile ?? mapGrouping.First();
     }
 
     public string Name { get => _mapFileInfo.Name; }
-
 }

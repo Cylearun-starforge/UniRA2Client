@@ -14,7 +14,7 @@ interface Window {
           };
 
           Map: {
-            ListMaps: () => Promise<GameMapProxy[]>;
+            ListMaps: () => Promise<MapSetProxy[]>;
           };
         };
       };
@@ -34,4 +34,9 @@ type RawObject<T> = T extends Webview2Proxy<infer O> ? O : T;
 
 type GameMapProxy = Webview2Proxy<{
   Name: string;
+}>;
+
+type MapSetProxy = Webview2Proxy<{
+  ModeName: string;
+  MapList: GameMapProxy[];
 }>;

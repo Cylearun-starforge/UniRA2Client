@@ -11,9 +11,9 @@ public class Map
         _context = context;
     }
 
-    public GameMap[] ListMaps()
+    public MapSet[] ListMaps()
     {
-        return _context.Window.MapDirectory.EnumerateFiles().Select(file => new GameMap(file))
-            .ToArray();
+        var maps = _context.Window.MapDirectory.EnumerateDirectories().Select(dir => new MapSet(dir));
+        return maps.ToArray();
     }
 }

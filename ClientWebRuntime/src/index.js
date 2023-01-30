@@ -32,9 +32,36 @@ class GameMap {
   }
 }
 
-export const Map = {
+class MapSet {
+  /** @type {MapSetProxy} */
+  #mapSet;
+
+  /** @type {Promise<GameMap[]>} */
+  #mapList;
+
+  /**
+   * @param {MapSetProxy} mapSet
+   */
+  constructor(mapSet) {
+    this.#mapSet = mapSet;
+
+    this.#mapList = this.#mapSet.MapList.then(maps => {
+      return maps.map(proxy => new GameMap(proxy));
+    });
+  }
+
+  get mode() {
+    return this.#mapSet.ModeName;
+  }
+
+  get mapList() {
+    return this.#mapList;
+  }
+}
+
+export const map = {
   listMaps: async () => {
-    const internalMapList = await host.Map.ListMaps();
-    return internalMapList.map(map => new GameMap(map));
+    const internalMapSetList = await host.Map.ListMaps();
+    return internalMapSetList.map(map => new MapSet(map));
   },
 };
