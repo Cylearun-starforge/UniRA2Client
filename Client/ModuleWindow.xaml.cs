@@ -16,7 +16,18 @@ public partial class ModuleWindow
     private ModManifest? _manifest;
     public Guid WindowId { get; }
     public bool IsIdleWindow => _manifest == null;
+    public LaunchConfig GameLaunchConfig
+    {
+        get
+        {
+            if (_manifest?.Launcher is null)
+            {
+                throw new InvalidOperationException("manifest is null");
+            }
 
+            return _manifest.Launcher;
+        }
+    }
 
     private bool _isWindowReady = false;
     public event EventHandler<WindowReadyEventArgs> WindowReady;

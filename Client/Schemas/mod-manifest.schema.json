@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "properties": {
     "Name": {
@@ -45,7 +45,43 @@
         }
       },
       "required": ["InitialHeight", "InitialWidth"]
+    },
+    "Launcher": {
+      "type": "object",
+      "description": "Launcher configuration/启动器设置",
+      "properties": {
+        "Syringe": {
+          "type": "string",
+          "description": "Path to syringe.exe/syringe.exe 的路径"
+        },
+        "Game": {
+          "type": "string",
+          "description": "Path to game executable/游戏主程序路径",
+          "default": "gamemd.exe"
+        },
+        "WorkingDirectory": {
+          "type": "string",
+          "description": "Overwrite default working directory, defaults to Syringe's directory/覆盖默认工作目录，默认使用 Syringe 所在目录"
+        },
+        "GameArguments": {
+          "type": "array",
+          "description": "Command line arguments for game executable/游戏主程序的命令行参数",
+          "items": {
+            "type": "string",
+            "pattern": "^-"
+          }
+        }
+      },
+      "required": ["Syringe"]
     }
   },
-  "required": ["Name", "Page", "Version", "HomePage", "Description", "Window"]
+  "required": [
+    "Name",
+    "Page",
+    "Version",
+    "HomePage",
+    "Description",
+    "Window",
+    "Launcher"
+  ]
 }

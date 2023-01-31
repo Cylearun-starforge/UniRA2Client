@@ -18,6 +18,14 @@ public record WindowConfig
     public string? Title { get; set; }
 };
 
+public record LaunchConfig
+{
+    public string Syringe { get; set; } = string.Empty;
+    public string Game { get; set; } = "gamemd.exe";
+    public string? WorkingDirectory { get; set; }
+    public string[]? GameArguments { get; set; }
+}
+
 public record ModManifest
 {
     public string Name { get; set; } = string.Empty;
@@ -26,6 +34,7 @@ public record ModManifest
     public string Description { get; set; } = string.Empty;
     public string HomePage { get; set; } = string.Empty;
     public WindowConfig Window { get; set; }
+    public LaunchConfig Launcher { get; set; }
 }
 
 public static class ModManifestHelper

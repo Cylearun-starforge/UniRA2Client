@@ -6,16 +6,17 @@ namespace UniRA2.Client.WebRuntime.ModWindow
     {
         private RuntimeContext _context;
 
-        public Info Platform = new ();
+        public Info Platform = new();
         public Window Window;
         public Map Map;
+        public GameApi Game;
 
         public Runtime(RuntimeContext context)
         {
             _context = context;
             Window = new Window(_context);
             Map = new Map(_context);
-
+            Game = new GameApi(_context);
         }
     }
 

@@ -65,3 +65,9 @@ export const map = {
     return internalMapSetList.map(map => new MapSet(map));
   },
 };
+
+export const Game = {
+  launch: async () => {
+    await host.Game.LaunchGame();
+  },
+};

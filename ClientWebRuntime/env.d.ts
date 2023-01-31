@@ -16,6 +16,10 @@ interface Window {
           Map: {
             ListMaps: () => Promise<MapSetProxy[]>;
           };
+
+          Game: {
+            LaunchGame: () => Promise<void>;
+          };
         };
       };
     };
