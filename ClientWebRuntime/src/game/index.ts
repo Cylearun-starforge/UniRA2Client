@@ -1,29 +1,31 @@
-//@ts-check
+import { Webview2Proxy, runtime } from '../env';
+type MapLocationProxy = Webview2Proxy<{
+  X: number;
+  Y: number;
+  IsValidLocation: boolean;
+}>;
 
-const host = window.chrome.webview.hostObjects.runtime;
+type GameMapHeaderProxy = Webview2Proxy<{
+  Width: number;
+  Height: number;
+  StartingPoints: MapLocationProxy[];
+}>;
 
-/**
- * Get UniRA2 Client information
- * @returns {Promise<{mode: 'Debug'|'Release', runtime: string}>}
- */
-export async function getPlatform() {
-  const mode = await host.Platform.Mode;
-  const runtime = await host.Platform.Runtime;
-  return { mode, runtime };
-}
+type GameMapProxy = Webview2Proxy<{
+  Name: string;
+  Header: GameMapHeaderProxy;
+  CoverFile: string;
+}>;
 
-export async function closeWindow() {
-  await host.Window.CloseWindow();
-}
+export type MapSetProxy = Webview2Proxy<{
+  ModeName: string;
+  MapList: GameMapProxy[];
+}>;
 
-class GameMapHeader {
-  /** @type {GameMapHeaderProxy} */
-  #header;
+export class GameMapHeader {
+  #header: GameMapHeaderProxy;
 
-  /**
-   * @param {GameMapHeaderProxy} header
-   */
-  constructor(header) {
+  constructor(header: GameMapHeaderProxy) {
     this.#header = header;
   }
 
@@ -43,17 +45,11 @@ class GameMapHeader {
   }
 }
 
-class GameMap {
-  /** @type {GameMapProxy} */
-  #map;
+export class GameMap {
+  #map: GameMapProxy;
+  #header: Promise<GameMapHeader>;
 
-  /** @type {Promise<GameMapHeader>} */
-  #header;
-
-  /**
-   * @param {GameMapProxy} map
-   */
-  constructor(map) {
+  constructor(map: GameMapProxy) {
     this.#map = map;
     this.#header = new Promise(async resolve => {
       const headerProxy = await this.#map.Header;
@@ -70,24 +66,21 @@ class GameMap {
   }
 
   get cover() {
-    return new Promise(async resolve => {
+    return new Promise<string>(async resolve => {
       const blobString = 'data:image/png;base64,' + (await this.#map.CoverFile);
       resolve(blobString);
     });
   }
 }
 
-class MapSet {
-  /** @type {MapSetProxy} */
-  #mapSet;
+/**
+ * @public
+ */
+export class MapSet {
+  #mapSet: MapSetProxy;
+  #mapList: Promise<GameMap[]>;
 
-  /** @type {Promise<GameMap[]>} */
-  #mapList;
-
-  /**
-   * @param {MapSetProxy} mapSet
-   */
-  constructor(mapSet) {
+  constructor(mapSet: MapSetProxy) {
     this.#mapSet = mapSet;
 
     this.#mapList = this.#mapSet.MapList.then(maps => {
@@ -105,15 +98,21 @@ class MapSet {
   }
 }
 
+/**
+ * @public
+ */
 export const map = {
   listMaps: async () => {
-    const internalMapSetList = await host.Map.ListMaps();
+    const internalMapSetList = await runtime.Map.ListMaps();
     return internalMapSetList.map(map => new MapSet(map));
   },
 };
 
-export const Game = {
+/**
+ * @public
+ */
+export const game = {
   launch: async () => {
-    await host.Game.LaunchGame();
+    await runtime.Game.LaunchGame();
   },
 };

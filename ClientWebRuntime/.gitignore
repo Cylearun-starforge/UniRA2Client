@@ -29,3 +29,5 @@ coverage
 
 # Build results
 dist/
+dist-dts/
+typing/api.d.ts

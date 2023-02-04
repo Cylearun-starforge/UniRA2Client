@@ -3,6 +3,7 @@ import { UserConfigExport } from 'vite';
 
 import { defineConfig } from 'vite';
 import copy from 'rollup-plugin-copy';
+import dts from 'vite-plugin-dts';
 
 export default defineConfig(configEnv => {
   const dev = configEnv.mode === 'development';
@@ -15,16 +16,19 @@ export default defineConfig(configEnv => {
     },
     build: {
       lib: {
-        entry: 'src/index.js',
+        entry: 'src/index.ts',
         fileName: 'runtime',
-        formats: ['iife'],
-        name: 'UniRA2Api',
+        formats: ['es'],
       },
       minify: !dev,
       sourcemap: dev ? 'inline' : false,
       outDir: 'dist',
     },
-    plugins: [],
+    plugins: [
+      dts({
+        outputDir: 'dist-dts',
+      }),
+    ],
   };
 
   if (!dev && !isCI) {
@@ -32,7 +36,7 @@ export default defineConfig(configEnv => {
       copy({
         targets: [
           {
-            src: 'dist/runtime.iife.js',
+            src: 'dist/runtime.js',
             dest: '../Client/bin/Release/net6.0-windows/win-x64/webRuntime',
           },
         ],

@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    env: 
+    env:
       CI: 1
     steps:
       - uses: actions/checkout@v3
@@ -39,6 +39,7 @@ jobs:
         run: corepack enable
       - run: pnpm install
       - run: pnpm --filter "@uni-ra2/client-runtime" build
+      - run: pnpm --filter "@uni-ra2/client-runtime" build:api
       - run: pnpm --filter "@uni-ra2/client-runtime" publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

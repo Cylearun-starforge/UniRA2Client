@@ -20,9 +20,12 @@
   },
   "lint-staged": {
     "*.cs": "dotnet format --no-restore --include",
-    "*.{js, ts, vue}": ["prettier --write", "eslint --fix"]
+    "*.{js, ts, vue}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   },
-  "husky":{
+  "husky": {
     "pre-commit": "lint-staged",
     "commit-msg": "commitlint -e $GIT_PARAMS"
   }

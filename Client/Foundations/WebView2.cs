@@ -1,3 +1,4 @@
+using System.IO;
 using System.Reflection;
 using System.Text.Json;
 using System.Windows;
@@ -18,6 +19,8 @@ public static class WebView2Extension
 
 
         var resourcesManager = SingletonContext.Get<WebResourcesManager>();
+        webView2.CoreWebView2.SetVirtualHostNameToFolderMapping("unira2",
+            Path.Join(resourcesManager.RuntimeScripts, ".."), CoreWebView2HostResourceAccessKind.Allow);
 
         webView2.Source = resourcesManager.MainWindowWebUrl;
     }

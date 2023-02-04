@@ -25,7 +25,8 @@
     "files.associations": {
       ".code-workspace": "jsonc",
       ".eslintrc": "jsonc",
-      ".eslintrc*.json": "jsonc"
+      ".eslintrc*.json": "jsonc",
+      ".jsonc": "jsonc"
     },
     "search.exclude": {
       "**/build": true,

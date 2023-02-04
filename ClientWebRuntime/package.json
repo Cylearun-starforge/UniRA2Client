@@ -6,14 +6,18 @@
     "build": "vite build --mode production",
     "test:unit": "vitest",
     "type-check": "tsc  --composite false",
-    "lint": "eslint .  --fix --ignore-path .gitignore"
+    "lint": "eslint .  --fix --ignore-path .gitignore",
+    "build:api": "api-extractor run --local -c ./api-extractor.jsonc"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.34.2",
     "@types/node": "^16.11.56",
-    "rollup-plugin-copy": "^3.4.0"
+    "rollup-plugin-copy": "^3.4.0",
+    "vite-plugin-dts": "^1.7.2"
   },
   "files": [
     "typing/index.d.ts",
+    "typing/api.d.ts",
     "package.json"
   ],
   "type": "module",
@@ -23,9 +27,5 @@
       "typing": "./typing/index.d.ts"
     },
     "./package.json": "./package.json"
-  },
-  "publishConfig": {
-    "access": "restricted",
-    "registry": "https://npm.pkg.github.com"
   }
 }
