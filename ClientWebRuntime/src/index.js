@@ -16,19 +16,64 @@ export async function closeWindow() {
   await host.Window.CloseWindow();
 }
 
+class GameMapHeader {
+  /** @type {GameMapHeaderProxy} */
+  #header;
+
+  /**
+   * @param {GameMapHeaderProxy} header
+   */
+  constructor(header) {
+    this.#header = header;
+  }
+
+  get width() {
+    return this.#header.Width;
+  }
+
+  get height() {
+    return this.#header.Height;
+  }
+
+  get startingPoints() {
+    return new Promise(async resolve => {
+      const startingPointList = await this.#header.StartingPoints;
+      resolve(startingPointList);
+    });
+  }
+}
+
 class GameMap {
   /** @type {GameMapProxy} */
   #map;
+
+  /** @type {Promise<GameMapHeader>} */
+  #header;
 
   /**
    * @param {GameMapProxy} map
    */
   constructor(map) {
     this.#map = map;
+    this.#header = new Promise(async resolve => {
+      const headerProxy = await this.#map.Header;
+      resolve(new GameMapHeader(headerProxy));
+    });
   }
 
   get name() {
     return this.#map.Name;
+  }
+
+  get header() {
+    return this.#header;
+  }
+
+  get cover() {
+    return new Promise(async resolve => {
+      const blobString = 'data:image/png;base64,' + (await this.#map.CoverFile);
+      resolve(blobString);
+    });
   }
 }
 
@@ -46,6 +91,7 @@ class MapSet {
     this.#mapSet = mapSet;
 
     this.#mapList = this.#mapSet.MapList.then(maps => {
+      console.log(maps);
       return maps.map(proxy => new GameMap(proxy));
     });
   }

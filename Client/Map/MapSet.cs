@@ -27,7 +27,7 @@ public class MapSet
 
         ModeName = directory.Name;
 
-        var validExtension = new[] {"map", "yrm"};
+        var validExtension = new[] {".map", ".yrm"};
 
         var mapGrouping = from file in Directory.EnumerateFiles()
             where validExtension.Contains(file.Extension)

@@ -36,8 +36,22 @@ type Webview2Proxy<T extends object> = { [Key in keyof T]: Webview2AsyncProperty
 
 type RawObject<T> = T extends Webview2Proxy<infer O> ? O : T;
 
+type MapLocationProxy = Webview2Proxy<{
+  X: number;
+  Y: number;
+  IsValidLocation: boolean;
+}>;
+
+type GameMapHeaderProxy = Webview2Proxy<{
+  Width: number;
+  Height: number;
+  StartingPoints: MapLocationProxy[];
+}>;
+
 type GameMapProxy = Webview2Proxy<{
   Name: string;
+  Header: GameMapHeaderProxy;
+  CoverFile: string;
 }>;
 
 type MapSetProxy = Webview2Proxy<{
