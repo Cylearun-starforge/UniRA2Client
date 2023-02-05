@@ -40,7 +40,6 @@ jobs:
       - run: pnpm install
       - run: pnpm --filter "@uni-ra2/client-runtime" build
       - run: pnpm --filter "@uni-ra2/client-runtime" build:api
-      - run: cd ./ClientWebRuntime/
-      - run: npm publish --tag ${{github.ref_name}}
+      - run: npm publish --workspace=ClientWebRuntime --tag ${{github.ref_name}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
