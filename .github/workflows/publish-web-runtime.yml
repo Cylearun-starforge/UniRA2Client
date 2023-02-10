@@ -1,14 +1,14 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
-name: Publish Web Runtime
+name: Test and Publish Web Runtime
 
 on:
   release:
     types: [prereleased]
 
 jobs:
-  build:
+  test:
     runs-on: windows-latest
     env:
       CI: 1
@@ -20,10 +20,9 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
       - run: pnpm install
-      - run: pnpm --filter "@uni-ra2/client-runtime" build
       - run: pnpm --filter "@uni-ra2/client-runtime" test:unit -- --run
 
-  publish-gpr:
+  publish:
     needs: build
     runs-on: windows-latest
     permissions:
@@ -34,7 +33,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          registry-url: https://npm.pkg.github.com/
       - name: Enable Corepack
         run: corepack enable
       - run: pnpm install
@@ -42,4 +40,4 @@ jobs:
       - run: pnpm --filter "@uni-ra2/client-runtime" build:api
       - run: npm publish --workspace=ClientWebRuntime --tag ${{github.ref_name}}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
