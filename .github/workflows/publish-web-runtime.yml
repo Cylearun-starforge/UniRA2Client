@@ -23,7 +23,7 @@ jobs:
       - run: pnpm --filter "@uni-ra2/client-runtime" test:unit -- --run
 
   publish:
-    needs: build
+    needs: test
     runs-on: windows-latest
     permissions:
       contents: read
