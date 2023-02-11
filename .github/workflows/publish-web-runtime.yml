@@ -40,4 +40,4 @@ jobs:
       - run: pnpm --filter "@uni-ra2/client-runtime" build:api
       - run: npm publish --workspace=ClientWebRuntime --tag ${{github.ref_name}}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
