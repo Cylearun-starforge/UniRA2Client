@@ -1,7 +1,5 @@
 import { fileURLToPath, URL } from 'node:url';
-import { UserConfigExport } from 'vite';
-
-import { defineConfig } from 'vite';
+import { UserConfigExport, defineConfig } from 'vite';
 import copy from 'rollup-plugin-copy';
 import dts from 'vite-plugin-dts';
 
@@ -18,7 +16,8 @@ export default defineConfig(configEnv => {
       lib: {
         entry: 'src/index.ts',
         fileName: 'runtime',
-        formats: ['es'],
+        formats: ['iife'],
+        name: 'UniRA2Api',
       },
       minify: !dev,
       sourcemap: dev ? 'inline' : false,

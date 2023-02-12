@@ -17,10 +17,7 @@ public static class WebView2Extension
             new CoreWebView2EnvironmentOptions("-allow-file-access-from-files"));
         await webView2.EnsureCoreWebView2Async(env);
 
-
         var resourcesManager = SingletonContext.Get<WebResourcesManager>();
-        webView2.CoreWebView2.SetVirtualHostNameToFolderMapping("unira2",
-            Path.Join(resourcesManager.RuntimeScripts, ".."), CoreWebView2HostResourceAccessKind.Allow);
 
         webView2.Source = resourcesManager.MainWindowWebUrl;
     }

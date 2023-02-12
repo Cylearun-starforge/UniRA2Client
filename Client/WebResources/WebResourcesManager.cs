@@ -16,10 +16,10 @@ public class WebResourcesManager
 #if DEBUG
         MainWindowWebUrl = new Uri("http://127.0.0.1:5173/");
         RuntimeScripts =
-            Path.Join(Environment.CurrentDirectory, "../../../../../ClientWebRuntime/dist/runtime.js");
+            Path.Join(Environment.CurrentDirectory, "../../../../../ClientWebRuntime/dist/runtime.iife.js");
 #else
         MainWindowWebUrl = new Uri("./ui/index.html", UriKind.Relative);
-        RuntimeScripts = Path.Join("./webRuntime/runtime.js", UriKind.Relative);
+        RuntimeScripts = Path.Join("./webRuntime/runtime.iife.js", UriKind.Relative);
 #endif
     }
 

@@ -1,5 +1,1 @@
-import api from './api';
-
-declare module 'http://unira2/client.js' {
-  export = api;
-}
+declare var UniRA2Api: typeof import('./api');
