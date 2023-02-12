@@ -1,6 +1,7 @@
 {
   "name": "@uni-ra2/client-runtime",
   "version": "0.0.0",
+  "private": false,
   "scripts": {
     "dev": "vite build --mode development",
     "build": "vite build --mode production",
