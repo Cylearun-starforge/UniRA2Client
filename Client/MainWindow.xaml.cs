@@ -8,12 +8,23 @@ namespace UniRA2.Client
 {
     public partial class MainWindow
     {
+        public static List<Action<MainWindow>> OnInit = new();
+        public static Guid Id = new();
+        public static MainWindow? Instance { get; private set; }
 
-        public Guid Id;
+        public static void CreateInstance()
+        {
+            if (Instance is not null)
+            {
+                throw new InvalidOperationException("Recreate MainWindow");
+            }
+
+            Instance = new MainWindow();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
-            Id = Guid.NewGuid();
         }
 
 

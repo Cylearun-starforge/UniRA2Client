@@ -18,3 +18,18 @@ internal class DevBinder : BinderBase<DevModel>
         return new DevModel(bindingContext.ParseResult.GetValueForArgument(_manifestArgument));
     }
 }
+
+internal class SingleBinder : BinderBase<SingleModel>
+{
+    private readonly Argument<DirectoryInfo> _modFolderArgument;
+
+    public SingleBinder(Argument<DirectoryInfo> modFolderArgument)
+    {
+        _modFolderArgument = modFolderArgument;
+    }
+
+    protected override SingleModel GetBoundValue(BindingContext bindingContext)
+    {
+        return new SingleModel(bindingContext.ParseResult.GetValueForArgument(_modFolderArgument));
+    }
+}

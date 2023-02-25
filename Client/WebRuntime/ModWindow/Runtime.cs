@@ -23,7 +23,7 @@ namespace UniRA2.Client.WebRuntime.ModWindow
 
     public record RuntimeContext
     {
-        public Guid WindowId;
+        public System.Guid WindowId;
 
         public ModuleWindow Window => SingletonContext.Get<ModWindowManager>().GetByGuid(WindowId);
     }

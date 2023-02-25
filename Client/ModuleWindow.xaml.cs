@@ -14,7 +14,7 @@ namespace UniRA2.Client;
 public partial class ModuleWindow
 {
     private ModManifest? _manifest;
-    public Guid WindowId { get; }
+    public System.Guid WindowId { get; }
     public bool IsIdleWindow => _manifest == null;
     public LaunchConfig GameLaunchConfig
     {
@@ -35,7 +35,7 @@ public partial class ModuleWindow
     public ModuleWindow()
     {
         InitializeComponent();
-        WindowId = Guid.NewGuid();
+        WindowId = System.Guid.NewGuid();
         WindowReady += (sender, args) =>
         {
             _isWindowReady = true;
