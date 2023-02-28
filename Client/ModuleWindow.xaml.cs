@@ -1,7 +1,6 @@
 using System.IO;
 using System.Security.Policy;
 using System.Windows;
-using UniRA2.Client.Data;
 using UniRA2.Client.Foundations;
 using UniRA2.Client.Schemas;
 using UniRA2.Client.WebResources;

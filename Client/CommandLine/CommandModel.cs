@@ -14,4 +14,4 @@ public class CommandModel
 
 public record DevModel(FileInfo Manifest);
 
-public record SingleModel(DirectoryInfo ModFolder);
+public record SingleModel(string ModFolder);

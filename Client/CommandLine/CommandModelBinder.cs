@@ -21,9 +21,9 @@ internal class DevBinder : BinderBase<DevModel>
 
 internal class SingleBinder : BinderBase<SingleModel>
 {
-    private readonly Argument<DirectoryInfo> _modFolderArgument;
+    private readonly Argument<string> _modFolderArgument;
 
-    public SingleBinder(Argument<DirectoryInfo> modFolderArgument)
+    public SingleBinder(Argument<string> modFolderArgument)
     {
         _modFolderArgument = modFolderArgument;
     }

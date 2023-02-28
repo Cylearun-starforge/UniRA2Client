@@ -56,23 +56,23 @@ namespace UniRA2.Client
 
         public async void OnSingle(SingleModel options)
         {
-            if (!options.ModFolder.Exists)
+            var modFolderDir = Path.Join(Directories.ModDir, options.ModFolder);
+            if (!Directory.Exists(modFolderDir))
             {
                 throw new ArgumentException($"Mod [{options.ModFolder}] is not exist");
             }
 
-            var manifestList = options.ModFolder.GetFiles("manifest.json", SearchOption.TopDirectoryOnly);
+
+            var manifestList = Directory.GetFiles(modFolderDir, "manifest.json", SearchOption.TopDirectoryOnly);
 
             if (manifestList.Length == 0)
             {
-                throw new ArgumentException($"Cannot find manifest.json for Mod [{options.ModFolder.Name}]");
+                throw new ArgumentException($"Cannot find manifest.json for Mod [{options.ModFolder}]");
             }
 
-            var manifest = await ModManifestHelper.LoadFromFile(manifestList[0].OpenRead());
+            var manifest = await ModManifestHelper.LoadFromFile(File.OpenRead(manifestList[0]));
             var window = SingletonContext.Get<ModWindowManager>().GetIdle();
             window.Instance.Start(manifest);
-
-
         }
     }
 }

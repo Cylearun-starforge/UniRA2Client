@@ -4,7 +4,6 @@ using System.Text.Json;
 using System.Windows;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
-using UniRA2.Client.Data;
 using UniRA2.Client.WebResources;
 
 namespace UniRA2.Client.Foundations;

@@ -31,7 +31,7 @@ public class CommandLine
 
         var singleCommand = new Command("single", "open single mod, do not show UniRA2Client's window");
         var singleModFolderArgument =
-            new Argument<DirectoryInfo>("folder", "mod folder, should contains manifest.json");
+            new Argument<string>("folder", "mod folder, should contains manifest.json");
         singleCommand.AddArgument(singleModFolderArgument);
         singleCommand.SetHandler((singleModel) =>
         {
