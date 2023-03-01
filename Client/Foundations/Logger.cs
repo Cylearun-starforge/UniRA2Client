@@ -58,28 +58,45 @@ namespace UniRA2.Client.Foundations
             _buffer.Append(DateTime.Now);
             _buffer.Append(']');
             _buffer.AppendLine(message);
-            _file.Write(Encoding.UTF8.GetBytes(_buffer.ToString()));
-            _file.FlushAsync();
+            UncheckedWrite(_buffer.ToString());
+        }
+
+        private void UncheckedWrite(string message)
+        {
+            _file!.Write(Encoding.UTF8.GetBytes(message));
         }
 
         internal void Debug(string message)
         {
             WriteWithLevel(0, message);
+            _file!.FlushAsync();
         }
 
         internal void Info(string message)
         {
             WriteWithLevel(1, message);
+            _file!.FlushAsync();
         }
 
         internal void Warn(string message)
         {
             WriteWithLevel(2, message);
+            _file!.FlushAsync();
         }
 
-        internal void Error(string message)
+        internal void Error(string message, Exception? exception)
         {
             WriteWithLevel(3, message);
+            if (exception == null)
+            {
+                goto flushAndExit;
+            }
+
+            UncheckedWrite("======== EXCEPTION INFO =========");
+            UncheckedWrite(exception.PrettyToString());
+            UncheckedWrite("=================================");
+            flushAndExit:
+            _file!.FlushAsync();
         }
     }
 }

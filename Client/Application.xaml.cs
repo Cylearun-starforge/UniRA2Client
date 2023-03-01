@@ -17,6 +17,7 @@ namespace UniRA2.Client
     {
         private void Application_OnStartup(object sender, StartupEventArgs e)
         {
+            UnhandledExceptionHandler.SetUnhandledExceptionHandler();
             var logger = SingletonContext.Get<Logger>();
             logger.Open(Directories.ClientLogPath);
             logger.Info("UniRA2Client log file");
