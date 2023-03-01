@@ -1,6 +1,7 @@
 using System.CommandLine;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Text.Json;
 using System.Windows;
 using UniRA2.Client.CommandLine;
@@ -16,6 +17,9 @@ namespace UniRA2.Client
     {
         private void Application_OnStartup(object sender, StartupEventArgs e)
         {
+            var logger = SingletonContext.Get<Logger>();
+            logger.Open(Directories.ClientLogPath);
+            logger.Info("UniRA2Client log file");
             var cmd = SingletonContext.Get<CommandLine.CommandLine>();
             cmd.OnDefault += OpenDefaultWindow;
             cmd.OnSingle += OnSingle;
@@ -40,6 +44,9 @@ namespace UniRA2.Client
             {
                 return;
             }
+
+            var logger = SingletonContext.Get<Logger>();
+            logger.Debug($"Running in Dev mode. Load manifest from {cmd.Manifest.FullName}");
 
             var manifest = await ModManifestHelper.LoadFromFile(cmd.Manifest.OpenRead());
             var window = SingletonContext.Get<ModWindowManager>().GetIdle();

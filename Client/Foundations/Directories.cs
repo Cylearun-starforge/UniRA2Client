@@ -14,6 +14,8 @@ internal class Directories
     public static string ModDir = Path.Join(InstallationDir, "Mod");
     public static string ModMapDirName = "Maps";
     public static string UserDataDir = Path.Join(InstallationDir, "UserData");
+    public static string LogDir = Path.Join(InstallationDir, "Logs");
+    public static FileInfo ClientLogPath = new(Path.Join(LogDir, "client.log"));
 
     public static string GetWebUserDataDir(string modName)
     {
