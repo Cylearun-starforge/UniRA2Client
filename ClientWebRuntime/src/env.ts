@@ -3,7 +3,7 @@ type Webview2AsyncProperty<T> = T extends (...args: infer Param) => infer Ret
   ? (...args: Param) => Promise<Ret>
   : Promise<T>;
 
-/** @public */
+/** @internal */
 export type Webview2Proxy<T extends object> = { [Key in keyof T]: Webview2AsyncProperty<T[Key]> } & {
   sync: () => Promise<T>;
 };

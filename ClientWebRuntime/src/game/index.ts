@@ -1,30 +1,37 @@
 import { Webview2Proxy, runtime } from '../env';
+/** @internal */
 type MapLocationProxy = Webview2Proxy<{
   X: number;
   Y: number;
   IsValidLocation: boolean;
 }>;
 
+/** @internal */
 type GameMapHeaderProxy = Webview2Proxy<{
   Width: number;
   Height: number;
   StartingPoints: MapLocationProxy[];
 }>;
 
+/** @internal */
 type GameMapProxy = Webview2Proxy<{
   Name: string;
   Header: GameMapHeaderProxy;
   CoverFile: string;
 }>;
 
+/** @internal */
 export type MapSetProxy = Webview2Proxy<{
   ModeName: string;
   MapList: GameMapProxy[];
 }>;
 
+/** @public */
 export class GameMapHeader {
+  /** @internal */
   private $header: GameMapHeaderProxy;
 
+  /** @internal */
   constructor(header: GameMapHeaderProxy) {
     this.$header = header;
   }
@@ -45,10 +52,13 @@ export class GameMapHeader {
   }
 }
 
+/** @public */
 export class GameMap {
+  /** @internal */
   private $map: GameMapProxy;
   header: Promise<GameMapHeader>;
 
+  /** @internal */
   constructor(map: GameMapProxy) {
     this.$map = map;
     this.header = new Promise(async resolve => {
@@ -73,9 +83,11 @@ export class GameMap {
  * @public
  */
 export class MapSet {
+  /** @internal */
   private $mapSet: MapSetProxy;
   mapList: Promise<GameMap[]>;
 
+  /** @internal */
   constructor(mapSet: MapSetProxy) {
     this.$mapSet = mapSet;
 

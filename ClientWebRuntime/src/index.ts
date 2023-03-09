@@ -1,5 +1,6 @@
 import { runtime as host } from './env';
 export { game, map } from './game';
+export type { MapSet, GameMap, MapSetProxy, GameMapHeader } from './game';
 
 /**
  * @public
