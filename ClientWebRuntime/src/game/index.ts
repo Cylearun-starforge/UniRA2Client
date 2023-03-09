@@ -23,51 +23,47 @@ export type MapSetProxy = Webview2Proxy<{
 }>;
 
 export class GameMapHeader {
-  #header: GameMapHeaderProxy;
+  private $header: GameMapHeaderProxy;
 
   constructor(header: GameMapHeaderProxy) {
-    this.#header = header;
+    this.$header = header;
   }
 
   get width() {
-    return this.#header.Width;
+    return this.$header.Width;
   }
 
   get height() {
-    return this.#header.Height;
+    return this.$header.Height;
   }
 
   get startingPoints() {
     return new Promise(async resolve => {
-      const startingPointList = await this.#header.StartingPoints;
+      const startingPointList = await this.$header.StartingPoints;
       resolve(startingPointList);
     });
   }
 }
 
 export class GameMap {
-  #map: GameMapProxy;
-  #header: Promise<GameMapHeader>;
+  private $map: GameMapProxy;
+  header: Promise<GameMapHeader>;
 
   constructor(map: GameMapProxy) {
-    this.#map = map;
-    this.#header = new Promise(async resolve => {
-      const headerProxy = await this.#map.Header;
+    this.$map = map;
+    this.header = new Promise(async resolve => {
+      const headerProxy = await this.$map.Header;
       resolve(new GameMapHeader(headerProxy));
     });
   }
 
   get name() {
-    return this.#map.Name;
-  }
-
-  get header() {
-    return this.#header;
+    return this.$map.Name;
   }
 
   get cover() {
     return new Promise<string>(async resolve => {
-      const blobString = 'data:image/png;base64,' + (await this.#map.CoverFile);
+      const blobString = 'data:image/png;base64,' + (await this.$map.CoverFile);
       resolve(blobString);
     });
   }
@@ -77,24 +73,20 @@ export class GameMap {
  * @public
  */
 export class MapSet {
-  #mapSet: MapSetProxy;
-  #mapList: Promise<GameMap[]>;
+  private $mapSet: MapSetProxy;
+  mapList: Promise<GameMap[]>;
 
   constructor(mapSet: MapSetProxy) {
-    this.#mapSet = mapSet;
+    this.$mapSet = mapSet;
 
-    this.#mapList = this.#mapSet.MapList.then(maps => {
+    this.mapList = this.$mapSet.MapList.then(maps => {
       console.log(maps);
       return maps.map(proxy => new GameMap(proxy));
     });
   }
 
   get mode() {
-    return this.#mapSet.ModeName;
-  }
-
-  get mapList() {
-    return this.#mapList;
+    return this.$mapSet.ModeName;
   }
 }
 
