@@ -25,6 +25,6 @@ export const runtime: {
   };
 
   Game: {
-    LaunchGame: () => Promise<void>;
+    LaunchGame: (jsonOptions: string) => Promise<void>;
   };
 } = (window as any).chrome.webview.hostObjects.runtime;

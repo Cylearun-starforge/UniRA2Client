@@ -28,7 +28,7 @@ public class IndependentLauncher
         _arguments = (launchConfig.GameArguments ?? Array.Empty<string>());
     }
 
-    public void Launch()
+    public void Launch(string overrideIni)
     {
         var process = new Process();
         process.StartInfo = new ProcessStartInfo(_syringe.FullName)

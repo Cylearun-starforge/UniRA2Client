@@ -1,7 +1,11 @@
 {
   "profiles": {
     "Client": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "dev C:\\Users\\69075\\projects\\UniRA2Mod-Cylearun\\manifest.json",
+      "environmentVariables": {
+        "INSTALLATION_DIR": "C:\\Users\\69075\\projects\\unira2-test-dir"
+      }
     }
   }
 }
