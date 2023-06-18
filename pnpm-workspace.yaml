@@ -1,3 +1,4 @@
 packages:
   - "ClientUI"
   - "ClientWebRuntime"
+  - "TauriClient"

@@ -17,6 +17,10 @@
       "name": "Client UnitTest"
     },
     {
+      "path": "TauriClient",
+      "name": "Experimental Client"
+    },
+    {
       "path": ".",
       "name": "Workspace"
     },
