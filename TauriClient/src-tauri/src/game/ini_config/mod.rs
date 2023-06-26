@@ -49,9 +49,9 @@ impl IniConfig {
         self.expect_contain_section(&section);
         assert!(
             self.record.get(section).unwrap().contains_key(key),
-            "expect to contains [{}]\n{}=",
+            "expect to contains key{{{}}} in [{}]",
+            key,
             section,
-            key
         )
     }
 
@@ -61,10 +61,10 @@ impl IniConfig {
         assert_eq!(
             self.record.get(section).unwrap().get(key).unwrap(),
             value,
-            "expect to contains [{}]\n{}={}",
+            "expect to contains value{{{}}} in [{}]{}",
+            value,
             section,
             key,
-            value
         );
     }
 }

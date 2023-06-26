@@ -1,6 +1,7 @@
 use std::collections::HashMap;
-use std::default;
+use std::fmt::format;
 use std::io::Write;
+use std::{default, fmt};
 
 use super::IniConfig;
 use crate::error::ClientError;
@@ -71,8 +72,44 @@ impl LaunchConfig {
         Ok(())
     }
 
-    pub fn prepare_for_serialization(&mut self) {
-        self.ready_to_serialize = true
+    fn player_index_to_house_ally_key(player_index: u8) -> String {
+        match player_index {
+            0 => String::from("HouseAllyOne"),
+            1 => String::from("HouseAllyTwo"),
+            2 => String::from("HouseAllyThree"),
+            3 => String::from("HouseAllyFour"),
+            4 => String::from("HouseAllyFive"),
+            5 => String::from("HouseAllySix"),
+            6 => String::from("HouseAllySeven"),
+            _ => panic!("player_index {} out of range", player_index),
+        }
+    }
+
+    fn add_team_to_ini(&mut self) {
+        let alliance_to_record = self
+            .team_record
+            .iter()
+            .filter(|(_, alliance)| alliance.len() > 1);
+
+        for (_, alliance) in alliance_to_record {
+            for player_index in alliance {
+                let rest_player_indexes = alliance.iter().filter(|index| index != &player_index);
+
+                let player_tag = format!("Multi{}_Alliance", player_index + 1);
+                for (count, alliance_index) in rest_player_indexes.enumerate() {
+                    self.ini.add_section_config(
+                        player_tag.to_owned(),
+                        Self::player_index_to_house_ally_key(count.try_into().unwrap()),
+                        alliance_index.to_string(),
+                    );
+                }
+            }
+        }
+    }
+
+    pub fn finish_add_config(&mut self) {
+        self.add_team_to_ini();
+        self.ready_to_serialize = true;
     }
 
     pub fn serialize<W: Write>(&self, write: &mut W) -> Result<(), ClientError> {
@@ -145,6 +182,8 @@ mod tests {
 
         let mut human_team_a = human_player::HumanPlayer::default();
         human_team_a.set_team(GameTeamType::A);
+        let mut human_team_a2 = human_player::HumanPlayer::default();
+        human_team_a2.set_team(GameTeamType::A);
 
         let mut human_team_c = human_player::HumanPlayer::default();
         human_team_c.set_team(GameTeamType::C);
@@ -153,15 +192,51 @@ mod tests {
         config.add_player(&mut robot_team_empty).unwrap(); // 1
         config.add_player(&mut robot_team_a).unwrap(); // 2
         config.add_player(&mut human_team_c).unwrap(); // 3
-        config.add_player(&mut robot_team_b).unwrap(); // 4
+        config.add_player(&mut human_team_a2).unwrap(); // 4
+        config.add_player(&mut robot_team_b).unwrap(); // 5
 
         let team = config.get_team_record();
 
-        assert_eq!(team.get(&GameTeamType::A).unwrap(), &vec![0, 2]);
-        assert_eq!(team.get(&GameTeamType::B).unwrap(), &vec![4]);
+        assert_eq!(team.get(&GameTeamType::A).unwrap(), &vec![0, 2, 4]);
+        assert_eq!(team.get(&GameTeamType::B).unwrap(), &vec![5]);
         assert_eq!(team.get(&GameTeamType::C).unwrap(), &vec![3]);
         assert_eq!(team.get(&GameTeamType::D).unwrap().len(), 0);
         assert_ne!(config.ini.record.len(), 0);
+
+        config.finish_add_config();
+
+        config.ini.expect_contain_kv(
+            &"Multi1_Alliance".to_owned(),
+            &"HouseAllyOne".to_owned(),
+            &"2".to_owned(),
+        );
+        config.ini.expect_contain_kv(
+            &"Multi1_Alliance".to_owned(),
+            &"HouseAllyTwo".to_owned(),
+            &"4".to_owned(),
+        );
+
+        config.ini.expect_contain_kv(
+            &"Multi3_Alliance".to_owned(),
+            &"HouseAllyOne".to_owned(),
+            &"0".to_owned(),
+        );
+        config.ini.expect_contain_kv(
+            &"Multi3_Alliance".to_owned(),
+            &"HouseAllyTwo".to_owned(),
+            &"4".to_owned(),
+        );
+
+        config.ini.expect_contain_kv(
+            &"Multi5_Alliance".to_owned(),
+            &"HouseAllyOne".to_owned(),
+            &"0".to_owned(),
+        );
+        config.ini.expect_contain_kv(
+            &"Multi5_Alliance".to_owned(),
+            &"HouseAllyTwo".to_owned(),
+            &"2".to_owned(),
+        );
     }
 
     #[test]
