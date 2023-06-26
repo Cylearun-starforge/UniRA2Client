@@ -1,2 +1,2 @@
-mod ini_config;
-mod player;
+pub mod ini_config;
+pub mod player;

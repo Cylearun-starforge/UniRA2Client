@@ -1,11 +1,8 @@
 use std::collections::HashMap;
-use std::fmt::format;
 use std::io::Write;
-use std::{default, fmt};
 
 use super::IniConfig;
 use crate::error::ClientError;
-use crate::game::player::human_player::HumanPlayer;
 use crate::game::player::{GameTeamType, Player, PlayerType};
 
 pub struct LaunchConfig {

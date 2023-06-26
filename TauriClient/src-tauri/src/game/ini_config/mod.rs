@@ -3,7 +3,7 @@ use std::{
     io::{Result as IoResult, Write},
 };
 
-mod launch_config;
+pub mod launch_config;
 
 pub struct IniConfig {
     pub record: HashMap<String, HashMap<String, String>>,
