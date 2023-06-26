@@ -1,21 +1,30 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import TestView from "../views/TestView.vue";
-
+import { createRouter, createWebHashHistory } from 'vue-router';
+import HomeView from '@/views/home-view.vue';
+import CampaignView from '@/views/campaign-view.vue';
+import SkirmishView from '@/views/skirmish-view.vue';
+import DifficultActivityView from '@/views/difficult-activity-view.vue';
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: TestView,
+      path: '/',
+      name: 'home',
+      component: HomeView,
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      path: '/campaign',
+      name: 'campaign',
+      component: CampaignView,
+    },
+    {
+      path: '/skirmish',
+      name: 'skirmish',
+      component: SkirmishView,
+    },
+    {
+      path: '/difficult-activity',
+      name: 'difficultActivity',
+      component: DifficultActivityView,
     },
   ],
 });

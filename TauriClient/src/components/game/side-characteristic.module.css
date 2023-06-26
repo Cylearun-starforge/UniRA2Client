@@ -1,0 +1,21 @@
+.side-characteristic {
+  width: 88%;
+  background-image: url('/basic/box.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  object-fit: contain;
+  padding: 11.8%;
+}
+
+.side-characteristic-hover-box {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 200px;
+  padding: 8px;
+  border: 2px solid rgb(134, 200, 217);
+  border-radius: 2px;
+  line-height: 2;
+}
+
+.side-characteristic > img {
+  width: 100%;
+}

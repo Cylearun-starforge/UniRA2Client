@@ -12,8 +12,11 @@
   "dependencies": {
     "vue": "^3.2.45",
     "@tauri-apps/api": "^1.4.0",
-    "pinia": "^2.0.21",
-    "vue-router": "^4.1.5"
+    "pinia": "^2.0.28",
+    "vue-router": "^4.1.6",
+    "@vitejs/plugin-vue-jsx": "^3.0.0",
+    "@vueuse/core": "^9.12.0",
+    "vueuc": "^0.4.51"
   },
   "devDependencies": {
     "@types/jsdom": "^20.0.0",
