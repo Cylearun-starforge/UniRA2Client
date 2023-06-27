@@ -1,3 +1,5 @@
+use crate::error::ClientError;
+
 use super::ini_config::IniConfig;
 
 pub mod base_player;
@@ -19,8 +21,9 @@ pub trait Player {
     fn set_team(&mut self, team: GameTeamType);
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, serde::Deserialize)]
 pub enum GameTeamType {
+    #[serde(rename(deserialize = "UPPERCASE"))]
     Empty,
     A,
     B,
@@ -39,6 +42,12 @@ pub enum GameSpawnLocation {
     Six,
     Seven,
     Eight,
+}
+
+impl Default for GameSpawnLocation {
+    fn default() -> Self {
+        Self::Random
+    }
 }
 
 impl From<u8> for GameSpawnLocation {
