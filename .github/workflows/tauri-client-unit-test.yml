@@ -16,11 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build
-        run: |
-          cd TauriClient/src-tauri
-          cargo build --verbose
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2.5.0
+        with:
+          workspaces: TauriClient/src-tauri -> target
 
       - name: Run tests
-        run: cargo test --verbose
+        run: |
+          cd TauriClient/src-tauri
+          cargo test --verbose
 
