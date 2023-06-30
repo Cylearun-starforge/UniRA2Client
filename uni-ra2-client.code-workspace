@@ -1,24 +1,12 @@
 {
   "folders": [
     {
-      "path": "Client",
-      "name": "Client Core"
+      "path": "client",
+      "name": "UniRA2Client"
     },
     {
-      "path": "ClientUI",
-      "name": "Client UI"
-    },
-    {
-      "path": "ClientWebRuntime",
-      "name": "Web Core"
-    },
-    {
-      "path": "UnitTests",
-      "name": "Client UnitTest"
-    },
-    {
-      "path": "TauriClient",
-      "name": "Experimental Client"
+      "path": "schemas",
+      "name": "Client Schemas"
     },
     {
       "path": ".",
