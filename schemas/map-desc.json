@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "MapDescriptionFile",
+  "definitions": {
+    "player_count": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 8
+    },
+    "mode_setting": {
+      "type": "object",
+      "properties": {
+        "mode_name": {
+          "type": "string",
+          "description": "游戏模式名称。默认的游戏模式是 Standard",
+          "minLength": 1,
+          "default": "Standard",
+          "examples": ["Standard", "my_mode"]
+        },
+        "display_name": {
+          "type": "string",
+          "description": "客户端内展示的模式名称。如果不设置，则使用 mode_name",
+          "minLength": 1
+        },
+        "override_ini": {
+          "description": "游戏模式强制使用的 ini，同 DTAClient 的 ForcedOptions。可以是一个字符串或一个对象",
+          "oneOf": [
+            {
+              "description": "字符串被当作是 ini 的路径",
+              "type": "string",
+              "pattern": ".\\.ini$",
+              "examples": ["example option.ini", "Options/Standard.ini"]
+            },
+            {
+              "description": "对象被视作需要覆盖的 ini，直接定义在本文件中。比如示例中的对象，会生成这样的 ini:\n[Section]\nOption=Value\nEnableSomeOption=true",
+              "type": "object",
+              "examples": [
+                {
+                  "Section": {
+                    "Option": "Value",
+                    "EnableSomeOption": "true"
+                  }
+                }
+              ],
+              "patternProperties": {
+                ".": {
+                  "description": "在这里定义的是 ini 中的一个段，比如想要定义 [Basic]，你只需要写 Basic",
+                  "type": "object",
+                  "examples": ["Basic", "GACON"],
+                  "patternProperties": {
+                    ".": {
+                      "type": "string",
+                      "description": "在这里是具体的ini，以 \"Key\": \"Value\" 的形式可以生成 Key=Value 的 ini"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": ["mode_name"]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "display_name": {
+      "description": "客户端内展示的地图名。如果不设置，则读取map文件中的Name并去掉人数标记",
+      "type": "string"
+    },
+    "player_limit": {
+      "description": "玩家数量限制，如果是一个数字n，表示玩家数量是1-n人;否则是数字n，m，表示玩家数量是n-m人。如果不设置 ，则会从地图文件中读取出生点数量作为玩家人数",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/player_count"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/player_count"
+          },
+          "additionalItems": false,
+          "maxItems": 2,
+          "minItems": 2
+        }
+      ]
+    },
+    "game_modes": {
+      "description": "支持的游戏模式，如果玩家选择的模式不在这个数组中，则这个地图不会被展示在列表中。如果不设置，默认使用标准对战模式，并且不覆盖任何ini",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/mode_setting"
+      }
+    },
+    "spawn_locations": {
+      "description": "玩家出生点，数量根据 player_limit 的上限决定。超过上限的出生点会被忽略，少于下限则地图载入失败。如果不设置，则会从地图文件中读取出生点",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          }
+        },
+        "required": ["x", "y"]
+      }
+    },
+    "custom_data": {
+      "description": "MOD 自定义的地图数据，也会被客户端读取后一同返回。如果不设置，则为空数组",
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "description": "json格式的自定义数据，客户端不会做任何修改",
+            "properties": {
+              "type": {
+                "const": "json"
+              },
+              "data": {}
+            }
+          },
+          {
+            "description": "相对地图文件的相对路径，客户端会把数据拼接成绝对路径",
+            "properties": {
+              "type": {
+                "const": "rel_path"
+              },
+              "data": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
