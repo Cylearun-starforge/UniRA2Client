@@ -2,40 +2,29 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
-            "command": "dotnet",
-            "type": "process",
+            "label": "ui:dev",
+            "type": "shell",
+            // `dev` keeps running in the background
+            // ideally you should also configure a `problemMatcher`
+            // see https://code.visualstudio.com/docs/editor/tasks#_can-a-background-task-be-used-as-a-prelaunchtask-in-launchjson
+            "problemMatcher": "$vite",
+            "isBackground": true,
+            "command": "pnpm",
             "args": [
+                "--filter",
+                "./client",
+                "dev",
+            ],
+        },
+        {
+            "label": "ui:build",
+            "type": "shell",
+            "command": "pnpm",
+            "args": [
+                "--filter",
+                "./client",
                 "build",
-                "${workspaceFolder}/Client/Client.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}/Client/Client.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "watch",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}/Client/Client.csproj"
-            ],
-            "problemMatcher": "$msCompile"
+            ]
         }
     ]
 }

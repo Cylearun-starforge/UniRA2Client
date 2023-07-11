@@ -2,25 +2,34 @@
     "version": "0.2.0",
     "configurations": [
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": ".NET Core Launch (console)",
-            "type": "coreclr",
+            "type": "lldb",
             "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Client/bin/Debug/net6.0-windows/UniRA2Client.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/Client",
-            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
-            "console": "internalConsole",
-            "stopAtEntry": false
+            "name": "Tauri Development Debug",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--no-default-features",
+                    "--target-dir=./client/src-tauri/target",
+                    "--features=debug_redirect"
+                ]
+            },
+            "preLaunchTask": "ui:dev",
+            "cwd": "${workspaceFolder}/client/src-tauri",
+            "envFile": "${workspaceFolder}/.vscode/debug.env"
         },
         {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach"
+            "type": "lldb",
+            "request": "launch",
+            "name": "Tauri Production Debug",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--release",
+                    "--target-dir=./client/src-tauri/target",
+                ]
+            },
+            "preLaunchTask": "ui:build",
+            "cwd": "${workspaceFolder}/client/src-tauri"
         }
     ]
 }

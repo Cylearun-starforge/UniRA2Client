@@ -2,8 +2,10 @@ use crate::{
     dto::ParsedPlayer,
     dto::PlayerDto,
     error::ClientError,
+    fs,
     game::{
         ini_config::launch_config::{LaunchConfig, LAUNCH_CONFIG_MAX_PLAYER},
+        map::{read_maps_from, Map},
         player::{human_player::HumanPlayer, robot_player::RobotPlayer},
     },
 };
@@ -40,4 +42,10 @@ pub fn cmd_game_add_players(players: Vec<PlayerDto>) -> Result<String, ClientErr
     launch_config.serialize(&mut buffer).and_then(|_| {
         String::from_utf8(buffer).map_err(|e| ClientError::InvalidOperation(e.to_string()))
     })
+}
+
+#[tauri::command]
+pub fn cmd_game_load_maps() -> Result<Vec<Map>, ClientError> {
+    let map_dir = fs::get_map_dir();
+    read_maps_from(&map_dir)
 }

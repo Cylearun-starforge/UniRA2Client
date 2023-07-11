@@ -40,7 +40,7 @@ pub fn get_client_dir() -> PathBuf {
 }
 
 pub fn get_map_dir() -> PathBuf {
-    let mut dir = get_client_current_dir();
+    let mut dir = get_client_dir();
     dir.push("Maps");
     dir
 }
