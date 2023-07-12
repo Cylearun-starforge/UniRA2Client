@@ -1,15 +1,63 @@
-use std::path::{Path, PathBuf};
+use std::{
+    collections::HashMap,
+    path::{Path, PathBuf},
+};
+
+use serde_json::Value;
 
 use crate::error::ClientError;
 
 use self::{map_data::MapData, map_descriptor::MapDescriptor};
 pub mod map_data;
 pub mod map_descriptor;
+mod utils;
+
+#[derive(Default, serde::Serialize)]
+pub struct InlineIni(HashMap<String, HashMap<String, String>>);
+
+#[derive(serde::Serialize)]
+#[serde(untagged)]
+pub enum MapModeIni {
+    Extern(String),
+    Inline(InlineIni),
+}
+
+impl MapModeIni {
+    pub fn from_value(value: &Value) -> Option<MapModeIni> {
+        match value {
+            Value::String(file) => Some(MapModeIni::Extern(file.to_owned())),
+            Value::Object(object) => {
+                let mut result = InlineIni::default();
+                for (section, value) in object {
+                    let mut ini: HashMap<String, String> = Default::default();
+                    for (k, v) in value.as_object().unwrap() {
+                        ini.insert(k.to_owned(), v.as_str().unwrap().to_owned());
+                    }
+                    result.0.insert(section.to_owned(), ini);
+                }
+
+                Some(MapModeIni::Inline(result))
+            }
+            _ => None,
+        }
+    }
+}
 
 #[derive(serde::Serialize)]
 pub struct SpawnLocation {
-    x: u8,
-    y: u8,
+    x: u64,
+    y: u64,
+}
+
+impl SpawnLocation {
+    pub fn from_value_unchecked(value: &Value) -> SpawnLocation {
+        let x = value.get("x").and_then(Value::as_u64);
+        let y = value.get("y").and_then(Value::as_u64);
+        SpawnLocation {
+            x: x.unwrap(),
+            y: y.unwrap(),
+        }
+    }
 }
 
 #[derive(serde::Serialize)]
@@ -23,7 +71,21 @@ pub struct Map {
 }
 
 #[derive(serde::Serialize)]
-pub struct MapMode;
+pub struct MapMode {
+    mode_name: String,
+    display_name: Option<String>,
+    override_ini: Option<MapModeIni>,
+}
+
+impl MapMode {
+    pub fn from_value_unchecked(value: &Value) -> MapMode {
+        MapMode {
+            mode_name: value.get("mode_name").map(|v| v.to_string()).unwrap(),
+            display_name: value.get("display_name").map(|v| v.to_string()),
+            override_ini: value.get("override_ini").and_then(MapModeIni::from_value),
+        }
+    }
+}
 
 impl Map {
     pub fn from_dir_unchecked<P: AsRef<Path>>(dir: &P) -> Map {
@@ -49,8 +111,14 @@ impl Map {
             player_limit: desc
                 .and_then(|d| d.player_limit())
                 .unwrap_or(map_data.player_limit()),
-            modes: Vec::default(),
-            spawn_locations: Vec::default(),
+            modes: desc.and_then(|d| d.game_modes()).unwrap_or(vec![MapMode {
+                mode_name: String::from("Standard"),
+                display_name: None,
+                override_ini: None,
+            }]),
+            spawn_locations: desc
+                .and_then(|d| d.spawn_locations())
+                .unwrap_or(map_data.spawn_locations()),
         }
     }
 }

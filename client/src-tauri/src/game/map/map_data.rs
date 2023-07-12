@@ -9,6 +9,8 @@ use tauri::{regex::Regex, utils::io::read_line};
 
 use crate::error::ClientError;
 
+use super::SpawnLocation;
+
 #[derive(serde::Deserialize)]
 #[serde(rename_all(deserialize = "PascalCase"))]
 struct MapBasicSection {
@@ -32,11 +34,11 @@ struct MapHeaderSection {
     waypoint6: MapWayPointValue,
     waypoint7: MapWayPointValue,
     waypoint8: MapWayPointValue,
-    number_starting_points: i32,
+    number_starting_points: u8,
 }
 
-#[derive(PartialEq, Eq, Debug)]
-struct MapWayPointValue(i32, i32);
+#[derive(PartialEq, Eq, Debug, Clone)]
+struct MapWayPointValue(u16, u16);
 struct MapWayPointValueVisitor;
 
 impl<'de> Visitor<'de> for MapWayPointValueVisitor {
@@ -56,7 +58,7 @@ impl<'de> Visitor<'de> for MapWayPointValueVisitor {
 
         let pair = pair
             .map(|c| c.trim())
-            .filter_map(|str| str.parse::<i32>().ok());
+            .filter_map(|str| str.parse::<u16>().ok());
 
         let pair = Vec::from_iter(pair);
 
@@ -73,6 +75,15 @@ impl<'de> Deserialize<'de> for MapWayPointValue {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_str(MapWayPointValueVisitor)
+    }
+}
+
+impl Into<SpawnLocation> for MapWayPointValue {
+    fn into(self) -> SpawnLocation {
+        SpawnLocation {
+            x: self.0.into(),
+            y: self.1.into(),
+        }
     }
 }
 
@@ -158,6 +169,27 @@ impl MapData {
             self.header.number_starting_points as u8,
             self.header.number_starting_points as u8,
         ]
+    }
+
+    pub fn spawn_locations(&self) -> Vec<SpawnLocation> {
+        let player_count = self.header.number_starting_points.into();
+        let waypoints = vec![
+            &self.header.waypoint1,
+            &self.header.waypoint2,
+            &self.header.waypoint3,
+            &self.header.waypoint4,
+            &self.header.waypoint5,
+            &self.header.waypoint6,
+            &self.header.waypoint7,
+            &self.header.waypoint8,
+        ];
+
+        let mut result: Vec<SpawnLocation> = Vec::with_capacity(player_count);
+        for i in 0..player_count {
+            result.push(waypoints[i].clone().into());
+        }
+
+        result
     }
 }
 

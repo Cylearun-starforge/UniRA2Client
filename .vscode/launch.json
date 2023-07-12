@@ -10,12 +10,12 @@
                     "build",
                     "--no-default-features",
                     "--target-dir=./client/src-tauri/target",
+                    "--manifest-path=./client/src-tauri/Cargo.toml",
                     "--features=debug_redirect"
                 ]
             },
             "preLaunchTask": "ui:dev",
-            "cwd": "${workspaceFolder}/client/src-tauri",
-            "envFile": "${workspaceFolder}/.vscode/debug.env"
+            "envFile": "${workspaceFolder}/.vscode/debug.env",
         },
         {
             "type": "lldb",
@@ -25,11 +25,11 @@
                 "args": [
                     "build",
                     "--release",
+                    "--manifest-path=./client/src-tauri/Cargo.toml",
                     "--target-dir=./client/src-tauri/target",
-                ]
+                ],
             },
             "preLaunchTask": "ui:build",
-            "cwd": "${workspaceFolder}/client/src-tauri"
         }
     ]
 }

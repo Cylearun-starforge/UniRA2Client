@@ -1,23 +1,16 @@
 use crate::schema::load_map_desc_schema;
-use std::fs::File;
 use std::io;
 use std::path::Path;
+use std::{collections::HashMap, fs::File};
 
 use serde_json::value::Value as ValueType;
 use serde_json::Value;
 
-use super::SpawnLocation;
+use super::{MapMode, SpawnLocation};
+use crate::game::map::utils::{u64_to_u8, u64_value_to_u8_unchecked};
 
 pub struct MapDescriptor {
     raw: Value,
-}
-
-fn u64_to_u8(v: u64) -> u8 {
-    v.to_le_bytes()[0]
-}
-
-fn u64_value_to_u8_unchecked(v: &Value) -> u8 {
-    u64_to_u8(v.as_u64().unwrap())
 }
 
 impl MapDescriptor {
@@ -33,6 +26,7 @@ impl MapDescriptor {
                 u64_value_to_u8_unchecked(&vec[0]) <= u64_value_to_u8_unchecked(&vec[1])
             }
             ValueType::Number(_) => true,
+            ValueType::Null => true,
             _ => false,
         }
     }
@@ -53,7 +47,13 @@ impl MapDescriptor {
             return None;
         }
 
-        File::open(desc_dir).ok().and_then(Self::from_reader)
+        File::open(desc_dir)
+            .map_err(|e| {
+                println!("Error open map desc: {}", e);
+                e
+            })
+            .ok()
+            .and_then(Self::from_reader)
     }
 
     pub fn display_name(&self) -> Option<String> {
@@ -72,17 +72,30 @@ impl MapDescriptor {
                 _ => None,
             })
     }
-}
 
-#[cfg(test)]
-mod tests {
-    use serde_json::json;
+    pub fn game_modes(&self) -> Option<Vec<MapMode>> {
+        self.raw.get("game_modes").and_then(|modes| match modes {
+            ValueType::Array(modes) => Some(
+                modes
+                    .iter()
+                    .map(|mode| MapMode::from_value_unchecked(&mode))
+                    .collect(),
+            ),
+            _ => None,
+        })
+    }
 
-    use crate::game::map::map_descriptor::u64_value_to_u8_unchecked;
-
-    #[test]
-    fn u64_to_u8() {
-        let n = json!(8);
-        assert_eq!(u64_value_to_u8_unchecked(&n), 8);
+    pub fn spawn_locations(&self) -> Option<Vec<SpawnLocation>> {
+        self.raw
+            .get("spawn_locations")
+            .and_then(|locations| match locations {
+                ValueType::Array(locations) => Some(
+                    locations
+                        .iter()
+                        .map(SpawnLocation::from_value_unchecked)
+                        .collect(),
+                ),
+                _ => None,
+            })
     }
 }
