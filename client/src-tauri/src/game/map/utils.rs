@@ -1,9 +1,5 @@
 use serde_json::Value;
 
-pub struct MapDescriptor {
-    raw: Value,
-}
-
 pub fn u64_to_u8(v: u64) -> u8 {
     v.to_le_bytes()[0]
 }

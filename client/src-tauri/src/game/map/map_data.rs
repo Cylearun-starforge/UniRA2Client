@@ -173,7 +173,7 @@ impl MapData {
 
     pub fn spawn_locations(&self) -> Vec<SpawnLocation> {
         let player_count = self.header.number_starting_points.into();
-        let waypoints = vec![
+        let waypoints = [
             &self.header.waypoint1,
             &self.header.waypoint2,
             &self.header.waypoint3,

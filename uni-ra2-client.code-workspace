@@ -2,7 +2,11 @@
   "folders": [
     {
       "path": "client",
-      "name": "UniRA2Client"
+      "name": "UniRA2Client",
+    },
+    {
+      "path": "serde-ini",
+      "name": "serde ini"
     },
     {
       "path": "schemas",
