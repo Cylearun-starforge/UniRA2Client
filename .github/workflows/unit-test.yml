@@ -18,10 +18,7 @@ jobs:
 
       - name: Rust Cache
         uses: Swatinem/rust-cache@v2.5.0
-        with:
-          workspaces: client/src-tauri -> target
-
+      
       - name: Run tests
         run: |
-          cd client/src-tauri
-          cargo test --verbose
+          cargo test
