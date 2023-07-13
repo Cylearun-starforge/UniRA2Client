@@ -97,6 +97,7 @@ pub struct MapData {
 
 impl MapData {
     /// Read ini section from reader. This method will seek from current fp.
+    #[warn(dead_code)]
     fn read_section_from<R: io::Read>(
         section: &str,
         line_iter: &mut io::Lines<BufReader<R>>,
@@ -148,14 +149,19 @@ impl MapData {
         }
     }
 
-    pub fn from_dir_unchecked<P: AsRef<Path>>(dir: &P) -> MapData {
-        println!("from_dir_unchecked: {:?}", dir.as_ref());
-        let file = File::open(dir.as_ref()).expect("Cannot read map");
+    pub fn from_dir<P: AsRef<Path>>(dir: &P) -> Result<MapData, ClientError> {
+        let file = File::open(dir.as_ref())?;
         let mut buf = vec![];
         let mut reader = BufReader::new(file);
-        reader.read_to_end(&mut buf).unwrap();
+        reader.read_to_end(&mut buf)?;
         let content = String::from_utf8_lossy(&buf);
-        serde_ini::from_str(&content).unwrap()
+        serde_ini::from_str(&content).map_err(|e| {
+            ClientError::ArgumentError(format!(
+                "Cannot parse {:?}: {}",
+                dir.as_ref(),
+                e.to_string()
+            ))
+        })
     }
 
     pub fn display_name(&self) -> String {

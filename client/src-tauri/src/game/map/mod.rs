@@ -88,7 +88,7 @@ impl MapMode {
 }
 
 impl Map {
-    pub fn from_dir_unchecked<P: AsRef<Path>>(dir: &P) -> Map {
+    pub fn from_dir<P: AsRef<Path>>(dir: &P) -> Result<Map, ClientError> {
         let dir = dir.as_ref();
         let mut cover_path = dir.to_path_buf();
         cover_path.set_extension("png");
@@ -97,17 +97,18 @@ impl Map {
         // ensure!(dir.is_file());
         // ensure!(cover_path.exists());
 
-        let cover_path = cover_path.to_str().unwrap().to_owned();
-        let path = dir.to_str().unwrap().to_owned();
+        let cover_path = cover_path.to_string_lossy();
+        let path = dir.to_string_lossy();
         let desc = MapDescriptor::from_dir(&desc_dir);
         let desc = desc.as_ref();
-        let map_data = MapData::from_dir_unchecked(&dir);
-        Map {
+        let map_data = MapData::from_dir(&dir)?;
+
+        Ok(Map {
             display_name: desc
                 .and_then(|d| d.display_name())
                 .unwrap_or(map_data.display_name()),
-            path,
-            cover: cover_path,
+            path: path.into_owned(),
+            cover: cover_path.into_owned(),
             player_limit: desc
                 .and_then(|d| d.player_limit())
                 .unwrap_or(map_data.player_limit()),
@@ -119,7 +120,7 @@ impl Map {
             spawn_locations: desc
                 .and_then(|d| d.spawn_locations())
                 .unwrap_or(map_data.spawn_locations()),
-        }
+        })
     }
 }
 
@@ -157,7 +158,7 @@ pub fn read_maps_from(dir: &PathBuf) -> Result<Vec<Map>, ClientError> {
                     return None;
                 }
 
-                Some(Map::from_dir_unchecked(&file))
+                Map::from_dir(&file).ok()
             });
 
             Ok(Vec::from_iter(valid_maps))

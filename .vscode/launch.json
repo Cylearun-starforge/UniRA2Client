@@ -9,8 +9,6 @@
                 "args": [
                     "build",
                     "--no-default-features",
-                    "--target-dir=./client/src-tauri/target",
-                    "--manifest-path=./client/src-tauri/Cargo.toml",
                     "--features=debug_redirect"
                 ]
             },
@@ -25,8 +23,6 @@
                 "args": [
                     "build",
                     "--release",
-                    "--manifest-path=./client/src-tauri/Cargo.toml",
-                    "--target-dir=./client/src-tauri/target",
                 ],
             },
             "preLaunchTask": "ui:build",
