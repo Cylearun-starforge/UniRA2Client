@@ -7,7 +7,8 @@ use serde_json::Value;
 
 use crate::error::ClientError;
 
-use self::{map_data::MapData, map_descriptor::MapDescriptor};
+use self::{custom_data::CustomData, map_data::MapData, map_descriptor::MapDescriptor};
+mod custom_data;
 pub mod map_data;
 pub mod map_descriptor;
 mod utils;
@@ -68,6 +69,7 @@ pub struct Map {
     player_limit: [u8; 2],
     spawn_locations: Vec<SpawnLocation>,
     modes: Vec<MapMode>,
+    custom_data: Vec<CustomData>,
 }
 
 #[derive(serde::Serialize)]
@@ -120,6 +122,9 @@ impl Map {
             spawn_locations: desc
                 .and_then(|d| d.spawn_locations())
                 .unwrap_or(map_data.spawn_locations()),
+            custom_data: desc
+                .and_then(|d| d.custom_data())
+                .unwrap_or(Default::default()),
         })
     }
 }

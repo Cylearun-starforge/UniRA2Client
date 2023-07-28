@@ -118,7 +118,10 @@
               "type": {
                 "const": "json"
               },
-              "data": {}
+              "data": {},
+              "key": {
+                "type": "string"
+              }
             }
           },
           {
@@ -130,6 +133,9 @@
               "data": {
                 "type": "string",
                 "minLength": 1
+              },
+              "key": {
+                "type": "string"
               }
             }
           }

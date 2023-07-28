@@ -1,3 +1,4 @@
+use crate::logger::{self, ClientLogger};
 use crate::schema::load_map_desc_schema;
 use std::io;
 use std::path::Path;
@@ -6,6 +7,7 @@ use std::{collections::HashMap, fs::File};
 use serde_json::value::Value as ValueType;
 use serde_json::Value;
 
+use super::custom_data::CustomData;
 use super::{MapMode, SpawnLocation};
 use crate::game::map::utils::{u64_to_u8, u64_value_to_u8_unchecked};
 
@@ -97,5 +99,26 @@ impl MapDescriptor {
                 ),
                 _ => None,
             })
+    }
+
+    pub fn custom_data(&self) -> Option<Vec<CustomData>> {
+        self.raw.get("custom_data").and_then(|data| match data {
+            ValueType::Array(data) => Some(
+                data.iter()
+                    .filter_map(|item| {
+                        let data = CustomData::from_value(item);
+                        if data.is_err() {
+                            let err = data.unwrap_err();
+                            logger::CONSOLE
+                                .warn(format!("Transform CustomData failed: {:?}", err).as_str());
+                            return None;
+                        }
+                        let data = data.unwrap();
+                        return Some(data);
+                    })
+                    .collect(),
+            ),
+            _ => None,
+        })
     }
 }
