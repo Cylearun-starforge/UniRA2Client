@@ -7,9 +7,10 @@ import LadderPanel from '@/components/home/ladder-panel.vue';
 import VersionTag from '@/components/home/version-tag.vue';
 import UserInfo from '@/components/user/user-info.vue';
 import AlphaButton from '@/components/alpha-button.vue';
+import { invoke } from '@tauri-apps/api';
 
 const closeApp = () => {
-  UniRA2Api.closeWindow();
+  invoke('cmd_exit_app')
 }
 
 
