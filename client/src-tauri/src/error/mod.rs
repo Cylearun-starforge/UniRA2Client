@@ -4,6 +4,7 @@ use std::{
 };
 
 #[derive(Debug, PartialEq, Clone, serde::Serialize)]
+#[serde(tag = "errorType", content = "content")]
 pub enum ClientError {
     ArgumentError(String),
     InvalidOperation(String),

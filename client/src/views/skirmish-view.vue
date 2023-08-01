@@ -11,6 +11,7 @@ import { useSkirmish } from '@/stores/skirmish';
 import SatelliteView from './map-preview-view.vue';
 import MapSelectView from './map-select-view.vue';
 import { reactive } from 'vue';
+import { useMapStore } from '@/stores/map-store';
 
 const state = useSkirmish();
 const localState = reactive({
@@ -25,7 +26,6 @@ function launchGame() {
     Value: option.value
   }));
   console.log(JSON.stringify(options))
-  UniRA2Api.game.launch(JSON.stringify(options));
 }
 
 

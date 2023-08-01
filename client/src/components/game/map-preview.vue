@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, onUpdated, PropType, reactive } from 'vue';
-import { GameMap } from '@/game/map';
-
+import { Map } from '@/types/dto';
+import { convertFileSrc } from '@tauri-apps/api/tauri'
 const props = defineProps({
   map: {
-    type: Object as PropType<GameMap>,
+    type: Object as PropType<Map>,
     required: true,
   },
 });
@@ -20,9 +20,8 @@ const loadMap = async () => {
   if (!map) {
     return;
   }
-  preview.value = await map.cover;
-  console.log('map', preview.value)
-  preview.ready = true;
+  preview.value = convertFileSrc(map.cover)
+  preview.ready = true
 }
 
 onMounted(loadMap)
@@ -31,38 +30,41 @@ onUpdated(loadMap)
 
 <template>
   <div class="map-preview-root">
-    <!-- <img class="preview-border" src="/game/map_preview_box.png" draggable="false" /> -->
+    <img class="preview-border" src="/game/map_preview_box.png" draggable="false" />
     <img class="map-preview" :src="preview.value" draggable="false" />
-    <!-- <div class="desc">
-      <div class="en">{{ map.name.en }}</div>
-      <div class="zh">{{ map.name.zh }}</div>
-    </div> -->
-    <!-- <div class="player-count-box">
+    <div class="desc">
+      <div class="en">{{ map.display_name }}</div>
+      <div class="zh">{{ map.display_name }}</div>
+    </div>
+    <div class="player-count-box">
       <div class="extra-gradient flex">
-        <div class="count">{{ map.playerLimit[0] }} - {{ map.playerLimit[1] }}</div>
+        <div class="count">{{ map.player_limit[0] }} - {{ map.player_limit[1] }}</div>
         <div>Players</div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <style scoped>
 .map-preview-root {
   width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .preview-border {
   width: 100%;
   object-fit: contain;
   z-index: 10;
-  
 }
 
 .map-preview {
-  top: 0;
+  position: absolute;
+  top: 50%;
   object-fit: contain;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  height: calc(100% - 24px);
+  width: calc(100% - 24px);
+  transform: translate(-50%, -50%);
 }
 
 .desc {
