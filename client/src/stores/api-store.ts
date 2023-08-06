@@ -22,10 +22,12 @@ export const useApiStore = defineStore("apiStore", {
     ...defineApiData("maps", [] as Map[]),
   }),
   actions: {
-    async loadMap() {
-      const data = await loadMaps();
-      this.maps = data;
-      console.log("maps", data);
+    async tryLoadMaps() {
+      if (this.maps_loaded) {
+        return;
+      }
+
+      this.maps = await loadMaps();
       this.maps_loaded = true;
     },
   },
