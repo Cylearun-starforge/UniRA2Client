@@ -6,8 +6,11 @@ import { onMounted, onUnmounted, reactive, ref } from 'vue';
 import { getElementPosition } from '@/util/getElementPosition';
 import { useGameMaps } from '@/stores/game-maps';
 import { useMapSets } from '@/stores/game-mode';
+import { useMapStore } from '@/stores/map-store';
+import { useSkirmish } from '@/stores/skirmish';
 
-const mapSetStore = useMapSets();
+const mapSetStore = useMapStore()
+const skirmishStore = useSkirmish()
 
 defineProps({
   selectedIndex: {
@@ -95,14 +98,14 @@ const onScroll = (e: WheelEvent) => {
   <div class="map-list-root flex flex-col">
     <div class="flex mode-filter">
       模式类型:
-      <dropdown-selector :candidates="mapSetStore.state.modes.map(mode => ({ display: mode, value: mode }))"
-        :value="mapSetStore.state.modes[0]" />
+      <dropdown-selector :candidates="Object.keys(mapSetStore.mapByModes).map(mode => ({ display: mode, value: mode }))"
+        :value="skirmishStore.currentMode" />
     </div>
     <div class="map-list-container flex" @wheel="onScroll">
       <div class="map-list flex flex-col">
         <div ref="mapViewRef">
           <div class="map-list-content" ref="mapListRef" :style="{ top: `-${state.scrollPercentage}%` }">
-            <map-item v-for="(map, i) in mapSetStore.state.mapSets" :key="i" :map="map"
+            <map-item v-for="(map, i) in skirmishStore.currentModeMaps" :key="i" :map="map"
               @select="$emit('setSelectedIndex', i)"></map-item>
           </div>
         </div>

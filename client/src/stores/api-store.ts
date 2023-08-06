@@ -25,6 +25,7 @@ export const useApiStore = defineStore("apiStore", {
     async loadMap() {
       const data = await loadMaps();
       this.maps = data;
+      console.log("maps", data);
       this.maps_loaded = true;
     },
   },

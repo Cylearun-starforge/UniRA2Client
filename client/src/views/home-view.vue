@@ -9,6 +9,7 @@ import UserInfo from '@/components/user/user-info.vue';
 import AlphaButton from '@/components/alpha-button.vue';
 import { invoke } from '@tauri-apps/api';
 import { useApiStore } from '@/stores/api-store';
+import { ref } from 'vue';
 
 const closeApp = () => {
   invoke('cmd_exit_app')
@@ -16,7 +17,6 @@ const closeApp = () => {
 
 const apiStore = useApiStore();
 apiStore.loadMap()
-
 </script>
 
 <template>

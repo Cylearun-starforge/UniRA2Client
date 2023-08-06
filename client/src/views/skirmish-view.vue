@@ -56,7 +56,7 @@ const addPlayer = () => {
     </div>
     <div class="skirmish-map-container flex">
       <div class="map-preview-and-options flex flex-col">
-        <map-preview :map="state.currentMap" />
+        <map-preview :map="state.currentMap" v-if="state.currentMap" />
         <div class="game-options-container flex">
           <alpha-button background="/game/start.png" class="game-start-button" @click="launchGame">
             <div class="zh">开始游戏</div>

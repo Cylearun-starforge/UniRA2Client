@@ -1,20 +1,24 @@
 <script setup lang="ts">
 import AlphaButton from '@/components/alpha-button.vue';
-import { useMapSets } from '@/stores/game-mode';
-import { effect } from 'vue';
+import { useApiStore } from '@/stores/api-store';
+import { useSkirmish } from '@/stores/skirmish';
+import { computed, effect, ref, watch } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
 
 const router = useRouter();
-const state = useMapSets();
-effect(() => {
-  state.loadMapSets();
+const apiStore = useApiStore();
+const enableSkirmish = computed(() => {
+  if (apiStore.maps_loaded) {
+    return false;
+  }
+  return Object.keys(apiStore.maps).length > 0
 })
 </script>
 <template>
   <div class="container flex">
     <div class="col col-1 flex flex-col">
       <button class="campaign">
-        <router-link to="/campaign" >
+        <router-link to="/campaign">
           <div class="zh">战役</div>
           <div class="en">CAMPAIGN</div>
         </router-link>
@@ -26,7 +30,7 @@ effect(() => {
         <div class="en">CONQUER</div>
       </alpha-button>
 
-      <button class="skirmish" :disabled="!state.state.ready">
+      <button class="skirmish" :disabled="!enableSkirmish">
         <router-link to="/skirmish">
           <div class="zh">自定义游戏</div>
           <div class="en">SKIRMISH</div>

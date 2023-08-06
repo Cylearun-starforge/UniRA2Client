@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { GameMap } from '@/game/map';
+import { Map } from '@/types/dto';
 import { PropType, reactive, onMounted } from 'vue';
 
 const props = defineProps({
   map: {
-    type: Object as PropType<GameMap>,
+    type: Object as PropType<Map>,
     required: true,
   },
 });
@@ -36,16 +37,16 @@ onMounted(loadMap)
 <template>
   <div class="map-preview-item-root" @click="$emit('select')">
     <img :src="cover.value" />
-    <!-- <div class="desc">
-      <div class="en">{{ map.name.en }}</div>
-      <div class="zh">{{ map.name.zh }}</div>
-    </div> -->
-    <!-- <div class="player-count-box">
+    <div class="desc">
+      <div class="en">{{ map.display_name }}</div>
+      <div class="zh">{{ map.display_name }}</div>
+    </div>
+    <div class="player-count-box">
       <div class="extra-gradient flex">
-        <div class="count">{{ map.playerLimit[0] }} - {{ map.playerLimit[1] }}</div>
+        <div class="count">{{ map.player_limit[0] }} - {{ map.player_limit[1] }}</div>
         <div>Players</div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 

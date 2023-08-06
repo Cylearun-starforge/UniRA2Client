@@ -16,7 +16,7 @@ const showPreview = ref(false);
 
 <template>
   <teleport to="body">
-    <!-- <map-preview-desc v-if="showPreview" :map="skirmish.currentMap" @close="showPreview = false" /> -->
+    <map-preview-desc v-if="showPreview" :map="skirmish.currentMap" @close="showPreview = false" />
   </teleport>
   <div class="map-select-view-root flex">
     <map-list :selected-index="skirmish.selectedMapIndex" @set-selected-index="skirmish.setMapIndex"></map-list>
@@ -27,13 +27,8 @@ const showPreview = ref(false);
           <!-- <p v-for="text in skirmish.currentMap.description" :key="text">{{ text }}</p> -->
         </div>
       </div>
-      <right-info
-        @click1="$emit('close')"
-        @click2="showPreview = true"
-        top-text-zh="返回"
-        top-text-en="BACK"
-        style="background-color: rgba(0, 0, 0, 0.6)"
-      />
+      <right-info @click1="$emit('close')" @click2="showPreview = true" top-text-zh="返回" top-text-en="BACK"
+        style="background-color: rgba(0, 0, 0, 0.6)" />
     </div>
   </div>
 </template>
@@ -87,7 +82,7 @@ const showPreview = ref(false);
   padding: 12px;
 }
 
-.map-list > div {
+.map-list>div {
   height: 100%;
   width: 100%;
   clip-path: polygon(10.2% 0%, 0 4.7%, 0 100%, 90.1% 100%, 100% 95.5%, 100% 0%);

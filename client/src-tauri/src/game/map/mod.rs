@@ -5,7 +5,10 @@ use std::{
 
 use serde_json::Value;
 
-use crate::error::ClientError;
+use crate::{
+    error::ClientError,
+    logger::{ClientLogger, CONSOLE},
+};
 
 use self::{custom_data::CustomData, map_data::MapData, map_descriptor::MapDescriptor};
 mod custom_data;
@@ -13,10 +16,10 @@ pub mod map_data;
 pub mod map_descriptor;
 mod utils;
 
-#[derive(Default, serde::Serialize)]
+#[derive(Default, serde::Serialize, Debug)]
 pub struct InlineIni(HashMap<String, HashMap<String, String>>);
 
-#[derive(serde::Serialize)]
+#[derive(serde::Serialize, Debug)]
 #[serde(untagged)]
 pub enum MapModeIni {
     Extern(String),
@@ -72,7 +75,7 @@ pub struct Map {
     custom_data: Vec<CustomData>,
 }
 
-#[derive(serde::Serialize)]
+#[derive(serde::Serialize, Debug)]
 pub struct MapMode {
     mode_name: String,
     display_name: Option<String>,
@@ -82,8 +85,15 @@ pub struct MapMode {
 impl MapMode {
     pub fn from_value_unchecked(value: &Value) -> MapMode {
         MapMode {
-            mode_name: value.get("mode_name").map(|v| v.to_string()).unwrap(),
-            display_name: value.get("display_name").map(|v| v.to_string()),
+            mode_name: value
+                .get("mode_name")
+                .and_then(|v| v.as_str())
+                .map(String::from)
+                .unwrap(),
+            display_name: value
+                .get("display_name")
+                .and_then(|v| v.as_str())
+                .map(String::from),
             override_ini: value.get("override_ini").and_then(MapModeIni::from_value),
         }
     }
