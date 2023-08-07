@@ -47,6 +47,10 @@
         "height": 768,
         "center": true
       }
-    ]
+    ],
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
+    }
   }
 }

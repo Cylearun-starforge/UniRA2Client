@@ -6,5 +6,9 @@ export function loadMaps() {
 }
 
 export function closeApp() {
-  invoke("cmd_exit_app");
+  return invoke("cmd_exit_app");
+}
+
+export function toggleDevtools() {
+  return invoke("toggle_devtools");
 }

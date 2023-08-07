@@ -6,18 +6,19 @@ mod error;
 mod fs;
 mod game;
 mod logger;
+mod menu;
 mod schema;
 
-use command::{fs::cmd_get_client_dir, game as game_cmd, lifecycle, util::greet};
+use command::build_handlers;
+use tauri::SystemTray;
+
 fn main() {
+    let menu = menu::build_context_menu();
+    let system_tray = SystemTray::new().with_menu(menu);
+
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![
-            greet,
-            cmd_get_client_dir,
-            game_cmd::cmd_game_add_players,
-            game_cmd::cmd_game_load_maps,
-            lifecycle::cmd_exit_app
-        ])
+        .system_tray(system_tray)
+        .invoke_handler(build_handlers())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

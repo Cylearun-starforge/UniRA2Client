@@ -1,9 +1,10 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { Router, createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "@/views/home-view.vue";
 import CampaignView from "@/views/campaign-view.vue";
 import SkirmishView from "@/views/skirmish-view.vue";
 import DifficultActivityView from "@/views/difficult-activity-view.vue";
 import { useApiStore } from "@/stores/api-store";
+import { registerShortcuts } from "@/util/register-shortcuts";
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
@@ -30,9 +31,27 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach(async () => {
+function registerBeforeAll(router: Router, action: () => Promise<void>) {
+  let run = false;
+  router.beforeEach(async () => {
+    if (run) {
+      return;
+    }
+    await action();
+    run = true;
+  });
+}
+
+registerBeforeAll(router, async () => {
   const apiStore = useApiStore();
   await apiStore.tryLoadMaps();
+});
+
+registerBeforeAll(router, async () => {
+  try {
+    await registerShortcuts();
+  } finally {
+  }
 });
 
 export default router;
