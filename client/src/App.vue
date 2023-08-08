@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { RouterView, onBeforeRouteLeave, on } from 'vue-router';
-import { useLoadingStore } from './stores/loading';
+import { RouterView } from 'vue-router';
 
 </script>
 

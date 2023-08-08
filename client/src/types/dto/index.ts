@@ -1,4 +1,4 @@
-import { Option, Vec, String, Value } from "@/types/rust-generic-types";
+import { Option, Vec, String, Value, u8 } from "@/types/rust-types";
 export interface SpawnLocation {
   x: number;
   y: number;
@@ -35,4 +35,17 @@ export interface Map {
   spawn_locations: Vec<SpawnLocation>;
   modes: Vec<MapMode>;
   custom_data: Vec<CustomData>;
+}
+
+export type PlayerType = "Human" | "Robot";
+export type GameTeamType = "EMPTY" | "A" | "B" | "C" | "D";
+
+export interface PlayerDto {
+  playerType: PlayerType;
+  spawnLocation: u8;
+  difficulty: u8;
+  side: u8;
+  color: u8;
+  team: GameTeamType;
+  name: String;
 }

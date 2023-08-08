@@ -1,4 +1,4 @@
-import { Map } from "@/types/dto";
+import { Map, PlayerDto } from "@/types/dto";
 import { invoke } from "@tauri-apps/api";
 
 export function loadMaps() {
@@ -11,4 +11,10 @@ export function closeApp() {
 
 export function toggleDevtools() {
   return invoke("toggle_devtools");
+}
+
+export function addPlayers(players: PlayerDto[]) {
+  return invoke(" cmd_game_add_players", {
+    players,
+  });
 }

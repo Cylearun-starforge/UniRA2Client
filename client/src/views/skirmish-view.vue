@@ -12,7 +12,8 @@ import SatelliteView from './map-preview-view.vue';
 import MapSelectView from './map-select-view.vue';
 import { reactive } from 'vue';
 import { useMapStore } from '@/stores/map-store';
-
+import { addPlayers } from '@/api';
+import { PlayerDto } from '@/types/dto';
 const state = useSkirmish();
 const localState = reactive({
   previewingMap: false,
@@ -26,6 +27,34 @@ function launchGame() {
     Value: option.value
   }));
   console.log(JSON.stringify(options))
+  addPlayers(state.players.filter(player => player.type !== 'empty').map(player => {
+    if (player.type === 'human') {
+      const result: PlayerDto = {
+        playerType: 'Human',
+        spawnLocation: player.info.location,
+        color: 0,
+        'difficulty': 0,
+        'name': player.info.username,
+        side: 0,
+        'team': player.info.team
+
+      }
+      return result;
+    } else if (player.type === 'bot') {
+      const result: PlayerDto = {
+        playerType: 'Robot',
+        spawnLocation: player.info.location,
+        color: 0,
+        'difficulty': 1,
+        'name': '',
+        side: 0,
+        'team': player.info.team
+      }
+
+      return result
+    }
+    throw new Error('Unknown player: ' + player.type)
+  }))
 }
 
 
