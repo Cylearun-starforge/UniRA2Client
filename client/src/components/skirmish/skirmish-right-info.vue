@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import AlphaButton from '@/components/alpha-button.vue';
-import { useMapSets } from '@/stores/game-mode';
+import { useSkirmish } from '@/stores/skirmish';
 
-const mapSetStore = useMapSets();
+const skirmishStore = useSkirmish();
 
 defineEmits({
   click1(e: MouseEvent) {
@@ -39,10 +39,10 @@ defineProps({
         <div class="text">当前模式:</div>
       </div>
       <div>
-        <div class="mode-tag">{{ mapSetStore.state.modes[mapSetStore.state.modeIndex] }}</div>
+        <div class="mode-tag">{{ skirmishStore.currentMode }}</div>
       </div>
     </div>
-    <alpha-button background="/game/satellite_bg.png" class="satellite-button" @click="e => $emit('click2', e)" disabled>
+    <alpha-button background="/game/satellite_bg.png" class="satellite-button" @click="e => $emit('click2', e)">
       <img src="/game/satellite.png" />
       <div class="content flex flex-col">
         <div class="zh">战场情报</div>

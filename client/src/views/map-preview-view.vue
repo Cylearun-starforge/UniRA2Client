@@ -1,36 +1,21 @@
 <script lang="ts" setup>
-import { PropType, watch, reactive, onMounted } from 'vue';
-import { GameMap } from '@/game/map';
-import { useAsyncState, UseAsyncStateReturn } from '@vueuse/core'
+import { PropType, computed } from 'vue';
+import { Map } from '@/types/dto';
+import { convertFileSrc } from '@tauri-apps/api/tauri';
 defineEmits({
   close: null,
 });
 
 const props = defineProps({
   map: {
-    type: Object as PropType<GameMap>,
+    type: Object as PropType<Map>,
     required: true,
   },
 });
 
-
-const preview = reactive({
-  ready: false,
-  value: '',
-})
-
-const loadMap = async () => {
-  const map = props.map
-  if (!map) {
-    return;
-  }
-  preview.value = await map.cover;
-  console.log('map', preview.value)
-  preview.ready = true;
-}
-
-onMounted(loadMap)
-
+const previewSrc = computed(() => {
+  return convertFileSrc(props.map.cover);
+});
 
 
 </script>
@@ -42,7 +27,7 @@ onMounted(loadMap)
         <button class="close-button" @click="$emit('close')">
           <img src="/game/map/preview/close.png" draggable="false" />
         </button>
-        <img v-if="preview.ready" :src="preview.value" draggable="false" />
+        <img :src="previewSrc" draggable="false" />
       </div>
     </div>
     <div class="right-margin"></div>

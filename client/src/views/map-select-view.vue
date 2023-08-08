@@ -24,7 +24,7 @@ const showPreview = ref(false);
       <div class="map-select-desc flex flex-col">
         <map-preview :map="skirmish.currentMap" />
         <div class="map-desc">
-          <!-- <p v-for="text in skirmish.currentMap.description" :key="text">{{ text }}</p> -->
+          <p v-for="text in ['ss', 'sss']" :key="text">{{ text }}</p>
         </div>
       </div>
       <right-info @click1="$emit('close')" @click2="showPreview = true" top-text-zh="返回" top-text-en="BACK"
