@@ -44,7 +44,7 @@ function registerBeforeAll(router: Router, action: () => Promise<void>) {
 
 registerBeforeAll(router, async () => {
   const apiStore = useApiStore();
-  await apiStore.tryLoadMaps();
+  await apiStore.loadRequiredData();
 });
 
 registerBeforeAll(router, async () => {

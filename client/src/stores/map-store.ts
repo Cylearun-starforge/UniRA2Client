@@ -6,7 +6,7 @@ import { useApiStore } from "./api-store";
 export const useMapStore = defineStore("mapStore", () => {
   const apiStore = useApiStore();
   const result: Record<string, Map[]> = {};
-  apiStore.maps.forEach((map) => {
+  apiStore.maps.data.forEach((map) => {
     map.modes.forEach((mode) => {
       if (!result[mode.mode_name]) {
         result[mode.mode_name] = [map];
