@@ -5,8 +5,12 @@
       "name": "Cylearun Client Frontend",
     },
     {
+      "path": "libs/components",
+      "name": "Cylearun Client Components"
+    },
+    {
       "path": "client/src-tauri",
-      "name": "Cylearun Client Frontend"
+      "name": "Cylearun Client Backend"
     },
     {
       "path": "serde-ini",
