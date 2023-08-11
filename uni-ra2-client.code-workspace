@@ -2,7 +2,11 @@
   "folders": [
     {
       "path": "client",
-      "name": "UniRA2Client",
+      "name": "Cylearun Client Frontend",
+    },
+    {
+      "path": "client/src-tauri",
+      "name": "Cylearun Client Frontend"
     },
     {
       "path": "serde-ini",
@@ -38,10 +42,10 @@
       "**/pnpm-lock.yaml": true
     },
     "files.exclude": {
-      "Client": true,
-      "ClientUI": true,
-      "ClientWebRuntime": true,
-      "UnitTests": true,
+      "client": true,
+      "client/src-tauri": true,
+      "serde-ini": true,
+      "schemas": true,
     },
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
