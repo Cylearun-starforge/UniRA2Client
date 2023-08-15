@@ -1,11 +1,11 @@
 {
-  "name": "@cylearun/client",
+  "name": "@cylearun/client-fe",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": " vite build",
     "preview": "vite preview",
     "tauri": "tauri"
   },

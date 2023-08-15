@@ -1,9 +1,9 @@
 {
-  "name": "uni-ra2-client",
-  "description": "Unified Red Alert 2 Client launcher.",
+  "name": "cylearun-monorepo",
+  "description": "Monorepo for Cylearun Project",
   "version": "0.0.0",
   "packageManager": "pnpm@7.12.2",
-  "author": "UniRA2 Team",
+  "author": "StarForge",
   "devDependencies": {
     "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^17.0.2",
@@ -14,7 +14,7 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.2",
     "prettier": "^2.7.1",
-    "typescript": "~4.7.4",
+    "typescript": "5.1",
     "vite": "^3.0.9",
     "vitest": "^0.23.0"
   },
@@ -28,8 +28,5 @@
   "husky": {
     "pre-commit": "lint-staged",
     "commit-msg": "commitlint -e $GIT_PARAMS"
-  },
-  "workspaces": [
-    "ClientWebRuntime"
-  ]
+  }
 }

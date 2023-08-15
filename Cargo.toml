@@ -1,2 +1,2 @@
 [workspace]
-members = ["./client/src-tauri", "serde-ini"]
+members = ["./apps/client-be", "./libs/serde-ini"]

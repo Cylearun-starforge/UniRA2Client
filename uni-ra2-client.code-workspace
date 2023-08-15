@@ -1,19 +1,19 @@
 {
   "folders": [
     {
-      "path": "client",
+      "path": "apps/client-fe",
       "name": "Cylearun Client Frontend",
     },
     {
-      "path": "libs/components",
+      "path": "libs/ui-components",
       "name": "Cylearun Client Components"
     },
     {
-      "path": "client/src-tauri",
+      "path": "apps/client-be",
       "name": "Cylearun Client Backend"
     },
     {
-      "path": "serde-ini",
+      "path": "libs/serde-ini",
       "name": "serde ini"
     },
     {
@@ -30,7 +30,7 @@
       ".code-workspace": "jsonc",
       ".eslintrc": "jsonc",
       ".eslintrc*.json": "jsonc",
-      ".jsonc": "jsonc"
+      ".json": "jsonc"
     },
     "search.exclude": {
       "**/build": true,
@@ -46,9 +46,6 @@
       "**/pnpm-lock.yaml": true
     },
     "files.exclude": {
-      "client": true,
-      "client/src-tauri": true,
-      "serde-ini": true,
       "schemas": true,
     },
     "editor.formatOnSave": true,
@@ -57,5 +54,6 @@
       80,
       120
     ],
+    "typescript.tsdk": "node_modules/typescript/lib"
   },
 }

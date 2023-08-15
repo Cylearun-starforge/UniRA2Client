@@ -1,13 +1,19 @@
 {
   "build": {
-    "beforeDevCommand": "pnpm dev",
-    "beforeBuildCommand": "pnpm build",
+    "beforeDevCommand": {
+      "script": "pnpm dev",
+      "cwd": "../client-fe"
+    },
+    "beforeBuildCommand": {
+      "script": "pnpm build",
+      "cwd": "../client-fe"
+    },
     "devPath": "http://localhost:1420",
-    "distDir": "../dist",
+    "distDir": "../client-fe/dist",
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "TauriClient",
+    "productName": "CylearunClient",
     "version": "0.0.0"
   },
   "tauri": {
@@ -20,13 +26,15 @@
       "protocol": {
         "all": false,
         "asset": true,
-        "assetScope": ["**"]
+        "assetScope": [
+          "**"
+        ]
       }
     },
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "unira2.client",
+      "identifier": "cylearun.client",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -42,7 +50,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "UniRA2Client",
+        "title": "CylearunClient",
         "width": 1366,
         "height": 768,
         "center": true

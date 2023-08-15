@@ -1,7 +1,7 @@
 [package]
-name = "unira2-client"
+name = "cylearun-client"
 version = "0.0.0"
-description = "A Tauri App"
+description = "Cylearun client"
 authors = ["you"]
 license = ""
 repository = ""
@@ -20,7 +20,7 @@ tauri = { version = "1.4.1", features = [
 ] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-serde_ini = { path = "../../serde-ini" }
+serde_ini = { path = "../../libs/serde-ini" }
 rust-embed = "6.8.1"
 jsonschema = "0.17.0"
 glob = "0.3.1"
