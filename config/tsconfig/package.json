@@ -1,0 +1,8 @@
+{
+  "name": "@cylearun/tsconfig",
+  "version": "1.0.0",
+  "exports": {
+    "./node": "./node.json",
+    "./web": "./web.json"
+  }
+}

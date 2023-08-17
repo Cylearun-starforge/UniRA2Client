@@ -314,6 +314,10 @@
     {
       "packageName": "@cylearun/components",
       "projectFolder": "libs/ui-components"
+    },
+    {
+      "packageName": "@cylearun/tsconfig",
+      "projectFolder": "config/tsconfig",
     }
     // 
     // {

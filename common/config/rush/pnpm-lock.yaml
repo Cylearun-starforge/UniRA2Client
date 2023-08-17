@@ -9,18 +9,15 @@ importers:
     specifiers:
       '@tauri-apps/api': ^1.4.0
       '@tauri-apps/cli': ^1.4.0
-      '@types/node': 18.17.1
-      typescript: 5.1.6
     dependencies:
       '@tauri-apps/api': 1.4.0
-      '@types/node': 18.17.1
-      typescript: 5.1.6
     devDependencies:
       '@tauri-apps/cli': 1.4.0
 
   ../../apps/client-fe:
     specifiers:
       '@cylearun/components': workspace:*
+      '@cylearun/tsconfig': workspace:*
       '@tauri-apps/api': ^1.4.0
       '@tauri-apps/cli': ^1.4.0
       '@types/jsdom': ^20.0.0
@@ -52,6 +49,7 @@ importers:
       vue-router: 4.2.4_vue@3.3.4
       vueuc: 0.4.51_vue@3.3.4
     devDependencies:
+      '@cylearun/tsconfig': link:../../config/tsconfig
       '@tauri-apps/cli': 1.4.0
       '@types/jsdom': 20.0.1
       '@types/node': 18.17.1
@@ -67,8 +65,12 @@ importers:
       vite: 4.4.9_@types+node@18.17.1
       vue-tsc: 1.8.8_typescript@5.1.6
 
+  ../../config/tsconfig:
+    specifiers: {}
+
   ../../libs/ui-components:
     specifiers:
+      '@cylearun/tsconfig': workspace:*
       '@types/node': 18.17.1
       '@vitejs/plugin-vue': ^4.0.0
       '@vitejs/plugin-vue-jsx': ^3.0.0
@@ -88,6 +90,7 @@ importers:
       vue: 3.3.4
       vueuc: 0.4.51_vue@3.3.4
     devDependencies:
+      '@cylearun/tsconfig': link:../../config/tsconfig
       '@types/node': 18.17.1
       '@vitejs/plugin-vue': 4.2.3_vite@4.4.9+vue@3.3.4
       '@vitejs/plugin-vue-jsx': 3.0.1_vite@4.4.9+vue@3.3.4
@@ -731,7 +734,7 @@ packages:
   /@types/jsdom/20.0.1:
     resolution: {integrity: sha512-d0r18sZPmMQr1eG35u12FZfhIXNrnsPU/g5wvRKCUf/tOGilKKwYMYGqh33BNR6ba+2gkHw1EUiHoN3mn7E5IQ==}
     dependencies:
-      '@types/node': 18.17.5
+      '@types/node': 18.17.1
       '@types/tough-cookie': 4.0.2
       parse5: 7.1.2
     dev: true
@@ -742,9 +745,6 @@ packages:
 
   /@types/node/18.17.1:
     resolution: {integrity: sha512-xlR1jahfizdplZYRU59JlUx9uzF1ARa8jbhM11ccpCJya8kvos5jwdm2ZAgxSCwOl0fq21svP18EVwPBXMQudw==}
-
-  /@types/node/18.17.5:
-    resolution: {integrity: sha512-xNbS75FxH6P4UXTPUJp/zNPq6/xsfdJKussCWNOnz4aULWIRwMgP1LgaB5RiBnMX1DPCYenuqGZfnIAx5mbFLA==}
     dev: true
 
   /@types/semver/7.5.0:
@@ -2729,6 +2729,7 @@ packages:
     resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: true
 
   /unbox-primitive/1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}

@@ -10,9 +10,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@tauri-apps/api": "^1.4.0",
-    "typescript": "5.1.6",
-    "@types/node": "18.17.1"
+    "@tauri-apps/api": "^1.4.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.4.0"

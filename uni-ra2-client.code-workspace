@@ -21,6 +21,10 @@
       "name": "Client Schemas"
     },
     {
+      "path": "config/tsconfig",
+      "name": "TypeScript Configurations",
+    },
+    {
       "path": ".",
       "name": "Workspace"
     },
@@ -46,6 +50,9 @@
       "**/pnpm-lock.yaml": true
     },
     "files.exclude": {
+      "apps": true,
+      "config": true,
+      "libs": true,
       "schemas": true,
     },
     "editor.formatOnSave": true,

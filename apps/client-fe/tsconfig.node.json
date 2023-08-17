@@ -1,10 +1,5 @@
 {
-  "compilerOptions": {
-    "composite": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true
-  },
+  "extends": "@cylearun/tsconfig/node",
   "include": [
     "vite.config.ts"
   ]
