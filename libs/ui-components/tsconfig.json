@@ -2,6 +2,7 @@
   "extends": "@cylearun/tsconfig/web",
   "compilerOptions": {
     "baseUrl": ".",
+    "noEmit": false,
     "emitDeclarationOnly": true,
     "declaration": true,
     "paths": {
@@ -16,6 +17,9 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "env.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.cy.ts"
   ],
   "references": [
     {

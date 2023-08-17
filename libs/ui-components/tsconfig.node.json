@@ -1,5 +1,5 @@
 {
-  "extends": "@cylearun/tsconfig/web",
+  "extends": "@cylearun/tsconfig/node",
   "include": [
     "vite.config.ts"
   ]

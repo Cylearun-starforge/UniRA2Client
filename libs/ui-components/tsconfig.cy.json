@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "compilerOptions": {
+        "target": "es5",
+        "lib": [
+            "es5",
+            "dom"
+        ],
+        "types": [
+            "cypress",
+            "node"
+        ],
+        "jsx": "preserve",
+    },
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        }
+    ],
+    "include": [
+        "src/**/*.cy.ts",
+        "cypress.d.ts"
+    ]
+}

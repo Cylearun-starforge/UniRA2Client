@@ -4,7 +4,8 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "cy:open": "cypress open"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "@types/node": "18.17.1",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "@vitejs/plugin-vue": "^4.0.0",
+    "cypress": "~12.17.4",
     "typescript": "5.1.6",
     "vite": "^4.2.1",
     "vue-tsc": "^1.0.11",
