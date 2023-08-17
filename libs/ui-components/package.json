@@ -22,7 +22,7 @@
     "vueuc": "^0.4.51"
   },
   "devDependencies": {
-    "@types/node": "^18.7.10",
+    "@types/node": "18.17.1",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "typescript": "5.1.6",
