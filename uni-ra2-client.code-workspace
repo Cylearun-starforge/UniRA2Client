@@ -54,6 +54,7 @@
       80,
       120
     ],
+    "editor.linkedEditing": true,
     "typescript.tsdk": "node_modules/typescript/lib"
   },
 }
