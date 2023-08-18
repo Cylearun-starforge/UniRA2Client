@@ -1,0 +1,15 @@
+.cy-input {
+    border: 0;
+    outline:0;
+    background-color: black;
+    color: white;
+    caret-color: white;
+    padding: 8px 4px;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px blue, 0 0 0 2px black, 0 0 0 4px blue;
+    
+}
+
+.cy-input::selection {
+    color: gray;
+}

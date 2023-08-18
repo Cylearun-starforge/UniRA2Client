@@ -19,7 +19,8 @@
     "env.d.ts"
   ],
   "exclude": [
-    "src/**/*.cy.ts"
+    "src/**/*.cy.ts",
+    "src/**/*.cy.tsx"
   ],
   "references": [
     {

@@ -19,6 +19,7 @@
     ],
     "include": [
         "src/**/*.cy.ts",
+        "src/**/*.cy.tsx",
         "cypress.d.ts"
     ]
 }
