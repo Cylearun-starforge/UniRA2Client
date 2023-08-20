@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "vue": "^3.2.45",
-    "vueuc": "^0.4.51"
+    "vueuc": "^0.4.51",
+    "less": "~4.2.0"
   },
   "devDependencies": {
     "@types/node": "18.17.1",

@@ -1,4 +1,1 @@
-declare module "*.module.css" {
-  declare const _default: Record<string, string>;
-  export default _default;
-}
+/// <reference types="vite/client" />

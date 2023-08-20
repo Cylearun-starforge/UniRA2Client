@@ -1,6 +1,6 @@
 import {  ExtractPropTypes, ExtractPublicPropTypes, Prop, PropType, defineComponent, onMounted, ref } from "vue";
 
-import style from './style.module.css';
+import style from './style.module.less';
 
 const props = {
     value: {

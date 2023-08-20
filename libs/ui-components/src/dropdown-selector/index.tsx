@@ -1,5 +1,5 @@
 import { defineComponent, PropType, h, ref, reactive, StyleValue } from "vue";
-import style from "./style.module.css";
+import style from "./style.module.less";
 import { VBinder, VFollower, VTarget } from "vueuc";
 
 type DropdownCandidate<T> = {
