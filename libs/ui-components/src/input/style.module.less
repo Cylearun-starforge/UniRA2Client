@@ -1,14 +1,13 @@
 @import (reference) '@/theme.less';
+
 .cy-input {
-    border: 0;
-    outline:0;
+    outline: 0;
     background-color: black;
     color: white;
     caret-color: white;
     padding: 8px 4px;
-    border-radius: 4px;
-    box-shadow: @border;
-    
+    .bordered();
+
 }
 
 .cy-input::selection {

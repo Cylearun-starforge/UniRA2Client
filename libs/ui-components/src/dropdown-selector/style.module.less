@@ -1,33 +1,60 @@
-@import (reference) '../theme.less';
+@import (reference) '@/theme.less';
 
-.dropdown-selector-root {
-  width: 196px;
-  height: 50px;
-}
-
-.dropdown-selected-item {
-  background-image: url("/game/dropdown_selector_box.png");
-  background-size: 100% 100%;
-  width: 90.82%;
-  height: 100%;
-  padding: 0 12px;
-  align-items: center;
-  font-size: 17px;
-  font-weight: bolder;
+.cy-dropdown-selector-root {
+  --width: 196px;
+  width: var(--width);
+  height: 24px;
+  background-color: @theme-bg;
+  position: relative;
+  display: flex;
+  color: @theme-main;
   font-family: '汉仪细等线';
 }
 
-.dropdown-button {
-  background-image: url("/game/dropdown_button.png");
-  background-color: transparent;
-  border-width: 0;
+.dropdown-selected-item {
   background-size: 100% 100%;
-  width: 19.39%;
-  height: 76%;
+  width: calc(var(--width) - 24px);
+  height: 100%;
+  padding: 0 12px;
+  align-items: center;
+  font-weight: bolder;
+  .bordered();
+  border-radius: 2px;
+}
+
+.dropdown-button {
+  background-color: fadein(@theme-bg, 20%);
+  background-size: 100% 100%;
+  --size: 20px;
+  width: var(--size);
+  height: var(--size);
   position: absolute;
   right: 0;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translate(50%, -50%);
+  .bordered();
+  --padding: 2px;
+
+  &::after {
+    content: ' ';
+    display: block;
+    --icon-size: calc(var(--size) - 2 * var(--padding));
+    width: var(--icon-size);
+    height: var(--icon-size);
+    background-color: @theme-main;
+    position: absolute;
+    top: var(--padding);
+    left: var(--padding);
+    --top-left-point: var(--padding) var(--padding);
+    --top-right-point: calc(100% - var(--padding)) var(--padding);
+    --bottom-point: 50% calc(100% - var(--padding));
+    clip-path: polygon(var(--top-left-point), var(--top-right-point), var(--bottom-point));
+
+    // --top-point: 50% var(--padding);
+    // --bottom-left-point: var(--padding) calc(100% - var(--padding));
+    // --bottom-right-point: calc(100% - var(--padding)) calc(100% - var(--padding));
+    // clip-path: polygon(var(--top-point), var(--bottom-right-point), var(--bottom-left-point));
+  }
 }
 
 .dropdown-button:hover {
@@ -40,16 +67,16 @@
   background-color: rgba(0, 0, 0, 0.6);
   padding: 4px;
   border-radius: 2px;
-  width: calc(90% - 8px);
-  margin-left: 4px;
+  width: calc(100% - 8px);
+  z-index: 1000;
 }
 
 .dropdown-menu-item {
   padding: 4px;
   font-size: 17px;
   font-weight: bolder;
-  font-family: '汉仪细等线';
 }
+
 .dropdown-menu-item:hover {
   background-color: fadeout(@theme-main, 50%);
   cursor: pointer;

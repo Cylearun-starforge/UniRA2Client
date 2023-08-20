@@ -6,7 +6,7 @@ describe('<Index />', () => {
     cy.mount(Index, {
       props: {
         value: '1',
-        candidates: [{display: 'option-1', value: '1'}]
+        candidates: [{display: 'option-1', value: '1'}, {display: 'option-2', value: '2'}]
       }
     })
   })
