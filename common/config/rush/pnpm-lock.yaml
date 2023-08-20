@@ -89,12 +89,10 @@ importers:
       vite-plugin-dts: ~3.5.2
       vue: ^3.2.45
       vue-tsc: ^1.0.11
-      vueuc: ^0.4.51
     dependencies:
       '@floating-ui/vue': 1.0.2_vue@3.3.4
       less: 4.2.0
       vue: 3.3.4
-      vueuc: 0.4.51_vue@3.3.4
     devDependencies:
       '@cylearun/tsconfig': link:../../config/tsconfig
       '@types/node': 18.17.1

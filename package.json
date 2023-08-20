@@ -10,20 +10,7 @@
     "@rushstack/eslint-patch": "^1.1.4",
     "eslint": "^8.22.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "git-cz": "^4.9.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.2",
-    "prettier": "^2.7.1",
-    "typescript": "5.1",
-    "vite": "^3.0.9",
-    "vitest": "^0.23.0"
-  },
-  "lint-staged": {
-    "*.cs": "dotnet format --no-restore --include",
-    "*.{js, ts, vue}": [
-      "prettier --write",
-      "eslint --fix"
-    ]
+    "git-cz": "^4.9.0"
   },
   "husky": {
     "pre-commit": "lint-staged",
