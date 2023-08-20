@@ -1,5 +1,6 @@
 {
     "$schema": "https://json.schemastore.org/tsconfig",
+    "extends": "@cylearun/tsconfig/node",
     "compilerOptions": {
         "target": "es5",
         "lib": [
@@ -11,10 +12,11 @@
             "node"
         ],
         "jsx": "preserve",
+        "composite": true
     },
     "references": [
         {
-            "path": "./tsconfig.node.json"
+            "path": "./tsconfig.json"
         }
     ],
     "include": [

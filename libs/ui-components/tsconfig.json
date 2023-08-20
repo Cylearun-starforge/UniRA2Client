@@ -9,7 +9,8 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "composite": true
   },
   "include": [
     "src/**/*.ts",
@@ -25,6 +26,9 @@
   "references": [
     {
       "path": "./tsconfig.node.json",
+    },
+    {
+      "path": "./tsconfig.cy.json"
     }
   ]
 }
