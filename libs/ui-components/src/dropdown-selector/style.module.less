@@ -7,7 +7,7 @@
   background-color: @theme-bg;
   position: relative;
   display: flex;
-  color: @theme-main;
+  color: @theme-text;
   font-family: '汉仪细等线';
 }
 
@@ -25,7 +25,7 @@
 .dropdown-button {
   background-color: fadein(@theme-bg, 20%);
   background-size: 100% 100%;
-  --size: 20px;
+  --size: 16px;
   width: var(--size);
   height: var(--size);
   position: absolute;
@@ -33,21 +33,23 @@
   top: 50%;
   transform: translate(50%, -50%);
   .bordered();
-  --padding: 2px;
+  box-sizing: content-box;
+  padding: 0;
 
   &::after {
     content: ' ';
+    --icon-padding: 2px;
     display: block;
-    --icon-size: calc(var(--size) - 2 * var(--padding));
+    --icon-size: calc(var(--size) - 2 * var(--icon-padding));
     width: var(--icon-size);
     height: var(--icon-size);
     background-color: @theme-main;
     position: absolute;
-    top: var(--padding);
-    left: var(--padding);
-    --top-left-point: var(--padding) var(--padding);
-    --top-right-point: calc(100% - var(--padding)) var(--padding);
-    --bottom-point: 50% calc(100% - var(--padding));
+    top: var(--icon-padding);
+    left: var(--icon-padding);
+    --top-left-point: var(--icon-padding) var(--icon-padding);
+    --top-right-point: calc(100% - var(--icon-padding)) var(--icon-padding);
+    --bottom-point: 50% calc(100% - var(--icon-padding));
     clip-path: polygon(var(--top-left-point), var(--top-right-point), var(--bottom-point));
 
     // --top-point: 50% var(--padding);
