@@ -4,5 +4,9 @@
   "exports": {
     "./node": "./node.json",
     "./web": "./web.json"
+  },
+  "dependencies": {
+    "prettier": "~3.0.2",
+    "eslint": "~8.47.0"
   }
 }

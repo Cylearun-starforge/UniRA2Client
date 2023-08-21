@@ -25,6 +25,14 @@
       "safeForSimultaneousRushProcesses": true,
       "autoinstallerName": "lint-staged",
       "shellCommand": "lint-staged"
+    },
+    {
+      "name": "eslint",
+      "commandKind": "global",
+      "summary": "Invoke ESLint",
+      "safeForSimultaneousRushProcesses": true,
+      "autoinstallerName": "eslint",
+      "shellCommand": "eslint"
     }
     // {
     //   /**

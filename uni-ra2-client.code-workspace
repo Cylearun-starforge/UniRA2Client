@@ -63,7 +63,6 @@
     ],
     "editor.linkedEditing": true,
     "files.eol": "\n",
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "prettier.prettierPath": "${workspaceFolder}/common/autoinstallers/prettier/node_modules/prettier"
+    "typescript.tsdk": "node_modules/typescript/lib"
   },
 }

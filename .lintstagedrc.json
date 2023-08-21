@@ -1,6 +1,6 @@
 {
     "*.{js, ts, vue}": [
-        "prettier --write",
-        "eslint --fix"
+        "rush prettier --write",
+        "rush eslint --fix"
     ]
 }

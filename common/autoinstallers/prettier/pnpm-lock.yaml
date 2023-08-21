@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  prettier: latest
+  prettier: ~3.0.2
 
 dependencies:
   prettier: 3.0.2
