@@ -2,7 +2,6 @@
 import { BotDifficulties, BotStyles } from '@/game/player-type';
 import { GameSideNames } from '@/game/side';
 import { computed, reactive } from 'vue';
-import DropdownSelector from './dropdown-selector';
 import SideSelectView from '@/components/game/side-select-view.vue';
 import { useSkirmish } from '@/stores/skirmish';
 import ImgP from '@/components/auto-image.vue';
@@ -109,11 +108,10 @@ const sideImage = computed(() => {
 
 <template>
   <teleport to="body" v-if="state.openSideSelector">
-    <side-select-view :player-index="playerIndex ?? 0" :close-view="
-      () => {
+    <side-select-view :player-index="playerIndex ?? 0" :close-view="() => {
         state.openSideSelector = false;
       }
-    " />
+      " />
   </teleport>
   <div class="player-info-root">
     <img-p v-if="hasPlayer" :src="playerAvatar" class="player-avatar"

@@ -1,5 +1,5 @@
 <script lang="tsx" setup>
-import DropdownSelector from '@/components/game/dropdown-selector';
+import { CyDropdownSelector } from '@cylearun/components';
 import { defineComponent, ref, PropType, reactive, computed } from 'vue';
 import { BotDifficulties } from '@/game/player-type';
 import type { GameSide } from '@/game/side';
@@ -109,22 +109,15 @@ const futureSidesB = ['republic', 'gemoor'] as const;
               <div class="en">Bygone</div>
             </div>
             <div class="bygone-side-box">
-              <img
-                v-for="gameSide in bygoneSides"
-                :key="gameSide"
-                :src="`/game/sides/${gameSide}.png`"
-                :class="gameSide === state.currentSide ? ['selected-side'] : ''"
-                draggable="false"
-                @click="selectSide(gameSide)"
-              />
+              <img v-for="gameSide in bygoneSides" :key="gameSide" :src="`/game/sides/${gameSide}.png`"
+                :class="gameSide === state.currentSide ? ['selected-side'] : ''" draggable="false"
+                @click="selectSide(gameSide)" />
             </div>
           </div>
           <div v-if="player.type === 'bot'" class="ai-character-selector-area flex">
-            <dropdown-selector v-model:value="player.info.difficulty" :candidates="difficultyCandidate" />
-            <dropdown-selector
-              v-model:value="player.info.style"
-              :candidates="[{ display: '随机战斗风格', value: 'random' }]"
-            />
+            <cy-dropdown-selector v-model:value="player.info.difficulty" :candidates="difficultyCandidate" />
+            <cy-dropdown-selector v-model:value="player.info.style"
+              :candidates="[{ display: '随机战斗风格', value: 'random' }]" />
           </div>
         </div>
         <div class="flex flex-col future-side-container">
@@ -134,23 +127,11 @@ const futureSidesB = ['republic', 'gemoor'] as const;
           </div>
           <div class="future-side-box flex">
             <div class="flex">
-              <img
-                v-for="gameSide in futureSidesA"
-                :key="gameSide"
-                :src="`/game/sides/${gameSide}.png`"
-                draggable="false"
-                :class="state.currentSide === gameSide ? ['selected-side'] : ''"
-                @click="selectSide(gameSide)"
-              />
+              <img v-for="gameSide in futureSidesA" :key="gameSide" :src="`/game/sides/${gameSide}.png`" draggable="false"
+                :class="state.currentSide === gameSide ? ['selected-side'] : ''" @click="selectSide(gameSide)" />
             </div>
-            <img
-              v-for="gameSide in futureSidesB"
-              :key="gameSide"
-              :src="`/game/sides/${gameSide}.png`"
-              draggable="false"
-              :class="state.currentSide === gameSide ? ['selected-side'] : ''"
-              @click="selectSide(gameSide)"
-            />
+            <img v-for="gameSide in futureSidesB" :key="gameSide" :src="`/game/sides/${gameSide}.png`" draggable="false"
+              :class="state.currentSide === gameSide ? ['selected-side'] : ''" @click="selectSide(gameSide)" />
           </div>
         </div>
       </div>
@@ -167,12 +148,9 @@ const futureSidesB = ['republic', 'gemoor'] as const;
       </div>
       <div class="tag-area flex">
         <div class="side-characteristic-box">
-          <side-characteristic
-            image="/game/sides/tmp_side_char.png"
-            :description="'为什么要跑嘛？人家只是想和你一起做学园偶像而已呀！和我一起做学园偶像好不好嘛！'"
-            v-for="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-            :key="i"
-          />
+          <side-characteristic image="/game/sides/tmp_side_char.png"
+            :description="'为什么要跑嘛？人家只是想和你一起做学园偶像而已呀！和我一起做学园偶像好不好嘛！'" v-for="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+            :key="i" />
         </div>
       </div>
       <div class="button-area flex flex-col">
@@ -249,7 +227,7 @@ const futureSidesB = ['republic', 'gemoor'] as const;
   gap: 8px;
 }
 
-.bygone-side-box > img {
+.bygone-side-box>img {
   width: 32%;
   opacity: var(--side-unselected-opacity);
   cursor: pointer;
@@ -276,7 +254,7 @@ const futureSidesB = ['republic', 'gemoor'] as const;
   align-self: flex-start;
 }
 
-.future-side-box > div {
+.future-side-box>div {
   width: 100%;
   gap: 32px;
 }
@@ -321,7 +299,7 @@ const futureSidesB = ['republic', 'gemoor'] as const;
   width: 190px;
 }
 
-.button-area > button {
+.button-area>button {
   height: 69px;
   background-image: url('/game/start.png');
   background-size: 100% 100%;
@@ -333,15 +311,16 @@ const futureSidesB = ['republic', 'gemoor'] as const;
   cursor: pointer;
 }
 
-.button-area > button > div {
+.button-area>button>div {
   text-align: center;
   width: 100%;
 }
-.button-area > button > .zh {
+
+.button-area>button>.zh {
   font-size: 28px;
 }
 
-.button-area > button > .en {
+.button-area>button>.en {
   font-family: '汉仪细等线';
   font-weight: bolder;
   font-size: 24px;

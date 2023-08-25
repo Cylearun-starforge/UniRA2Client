@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import DropdownSelector from '@/components/game/dropdown-selector';
+import { CyDropdownSelector } from '@cylearun/components';
 import { GameModes } from '@/game/options';
 import MapItem from './map-item.vue';
 import { onMounted, onUnmounted, reactive, ref } from 'vue';
@@ -98,7 +98,8 @@ const onScroll = (e: WheelEvent) => {
   <div class="map-list-root flex flex-col">
     <div class="flex mode-filter">
       模式类型:
-      <dropdown-selector :candidates="Object.keys(mapSetStore.mapByModes).map(mode => ({ display: mode, value: mode }))"
+      <cy-dropdown-selector
+        :candidates="Object.keys(mapSetStore.mapByModes).map(mode => ({ display: mode, value: mode }))"
         :value="skirmishStore.currentMode" />
     </div>
     <div class="map-list-container flex" @wheel="onScroll">
