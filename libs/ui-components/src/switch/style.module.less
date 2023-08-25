@@ -1,0 +1,44 @@
+@import (reference) '@/theme.less';
+
+.game-switch-root {
+  display: flex;
+  height: 32px;
+  align-items: center;
+  color: @theme-text;
+}
+
+.game-switch-button {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+  --bg-url: url('./switch_box.png');
+  background-image: var(--bg-url);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.game-switch-button {
+  cursor: pointer;
+  background-color: transparent;
+  border-width: 0;
+}
+
+.game-switch-button:not(.game-switch-selected):not(
+    .game-switch-button-disabled
+  ):hover {
+  background-image: var(--bg-url),
+    radial-gradient(circle, rgba(0, 192, 255, 0.8) 0 10%, transparent 50%);
+}
+
+.game-switch-selected {
+  background-image: var(--bg-url),
+    radial-gradient(circle, rgb(0, 192, 255) 0 10%, transparent 50%);
+}
+
+.game-switch-disabled {
+  filter: grayscale(1);
+}
+
+.game-switch-button-disabled {
+  cursor: not-allowed;
+}

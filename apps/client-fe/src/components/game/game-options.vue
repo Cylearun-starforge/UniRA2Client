@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import GameSwitch from './game-switch.vue';
-import { CyDropdownSelector } from '@cylearun/components'
+import { CyDropdownSelector, CySwitch } from '@cylearun/components'
 import {
   GameOptionLabels,
   GameTimeSettings,
@@ -45,7 +44,7 @@ const updateField = <Key extends keyof GameOptions>(field: Key, value: GameOptio
 <template>
   <div class="game-options-root flex">
     <div class="flex flex-col">
-      <game-switch v-for="opt in leftSideOptions" class="game-option" :key="opt" :checked="options[opt].value"
+      <cy-switch v-for="opt in leftSideOptions" class="game-option" :key="opt" :checked="options[opt].value"
         @update:checked="updateField(opt, $event)" :disabled="options[opt].disabled" :text="GameOptionLabels[opt]" />
     </div>
     <div class="flex flex-col">
