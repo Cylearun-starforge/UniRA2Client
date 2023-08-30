@@ -1,17 +1,26 @@
 <script lang="ts" setup>
+import { PropType } from 'vue';
 import AlphaButton from './alpha-button.vue';
-import { RouterLink } from 'vue-router';
+import { RouteLocationRaw, RouterLink } from 'vue-router';
 const props = defineProps({
   class: {
     type: String,
     default: '',
   },
+  to: {
+    type: [String, Object] as PropType<RouteLocationRaw>,
+    default: '/'
+  },
+  text: {
+    type: String,
+    default: '返回主菜单'
+  }
 });
 </script>
 <template>
   <alpha-button background="/basic/button.png" :class="['back-button', props.class]">
-    <router-link to="/">
-      <div class="zh">返回主菜单</div>
+    <router-link :to="props.to">
+      <div class="zh">{{ text }}</div>
       <div class="en">BACK</div>
     </router-link>
   </alpha-button>
@@ -30,7 +39,7 @@ const props = defineProps({
   background-position: center;
 }
 
-.back-button > a {
+.back-button>a {
   text-decoration: none;
 }
 

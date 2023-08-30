@@ -1,31 +1,39 @@
-import { Router, createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "@/views/home-view.vue";
-import CampaignView from "@/views/campaign-view.vue";
-import SkirmishView from "@/views/skirmish-view.vue";
-import DifficultActivityView from "@/views/difficult-activity-view.vue";
-import { useApiStore } from "@/stores/api-store";
-import { registerShortcuts } from "@/util/register-shortcuts";
+import { Router, createRouter, createWebHashHistory } from 'vue-router';
+import HomeView from '@/views/home-view.vue';
+import CampaignView from '@/views/campaign-view.vue';
+import SkirmishView from '@/views/skirmish-view.vue';
+import SkirmishMapSelectionView from '@/views/skirmish-map-selection-view.vue';
+import DifficultActivityView from '@/views/difficult-activity-view.vue';
+import { useApiStore } from '@/stores/api-store';
+import { registerShortcuts } from '@/util/register-shortcuts';
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
-      path: "/",
-      name: "home",
+      path: '/',
+      name: 'home',
       component: HomeView,
     },
     {
-      path: "/campaign",
-      name: "campaign",
+      path: '/campaign',
+      name: 'campaign',
       component: CampaignView,
     },
     {
-      path: "/skirmish",
-      name: "skirmish",
+      path: '/skirmish',
+      name: 'skirmish',
       component: SkirmishView,
+      children: [
+        {
+          path: 'map-selection',
+          name: 'skirmish-map-selection',
+          component: SkirmishMapSelectionView,
+        },
+      ],
     },
     {
-      path: "/difficult-activity",
-      name: "difficultActivity",
+      path: '/difficult-activity',
+      name: 'difficultActivity',
       component: DifficultActivityView,
     },
   ],

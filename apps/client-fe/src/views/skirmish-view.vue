@@ -14,6 +14,7 @@ import { reactive } from 'vue';
 import { useMapStore } from '@/stores/map-store';
 import { addPlayers } from '@/api';
 import { PlayerDto } from '@/types/dto';
+import { useRouter } from 'vue-router';
 const state = useSkirmish();
 const localState = reactive({
   previewingMap: false,
@@ -69,10 +70,18 @@ const addPlayer = () => {
     });
   }
 };
+const router = useRouter()
+const openMapSelector = () => {
+  localState.changingMap = true
+  router.push({
+    name: 'skirmish-map-selection'
+  })
+}
 </script>
 <template>
   <teleport to="body">
-    <map-select-view v-if="localState.changingMap" @close="localState.changingMap = false"></map-select-view>
+    <router-view v-if="localState.changingMap" />
+    <!-- <map-select-view v-if="localState.changingMap" @close="localState.changingMap = false"></map-select-view> -->
     <satellite-view v-if="localState.previewingMap" @close="localState.previewingMap = false"
       :map="state.currentMap"></satellite-view>
   </teleport>
@@ -95,7 +104,7 @@ const addPlayer = () => {
           <game-options v-model:options="state.options" />
         </div>
       </div>
-      <skirmish-right-info @click1="localState.changingMap = true" top-text-zh="更换地图" top-text-en="CHANGE MAP"
+      <skirmish-right-info @click1="openMapSelector" top-text-zh="更换地图" top-text-en="CHANGE MAP"
         @click2="localState.previewingMap = true" />
     </div>
   </div>
