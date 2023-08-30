@@ -10,7 +10,9 @@
         "./src/*"
       ]
     },
-    "composite": true
+    "composite": true,
+    "jsxImportSource": "vue",
+    "jsx": "preserve"
   },
   "include": [
     "src/**/*.ts",

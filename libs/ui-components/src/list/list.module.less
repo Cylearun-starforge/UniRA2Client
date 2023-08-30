@@ -1,0 +1,95 @@
+@import (reference) '@/theme.less';
+
+.map-list-root {
+  display: flex;
+  position: relative;
+  color: @theme-text;
+  --bg-color: #070b09;
+}
+
+.map-list-container {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-color);
+
+  & .map-list-view {
+    position: relative;
+  }
+}
+
+.map-list-content {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-list-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-image: linear-gradient(var(--bg-color), transparent),
+    url(./grid.png);
+  background-repeat: repeat;
+  background-color: var(--bg-color);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--round-height)),
+    calc(100% - var(--round-width)) 100%,
+    0 100%
+  );
+}
+
+.map-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+
+  background-color: transparent;
+  z-index: 1;
+
+  align-items: center;
+  overflow: hidden;
+}
+
+.map-list-round {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.map-list > div {
+  height: 100%;
+  width: 100%;
+  clip-path: polygon(10.2% 0%, 0 4.7%, 0 100%, 90.1% 100%, 100% 95.5%, 100% 0%);
+}
+
+.map-scrollbar {
+  width: var(--scrollbar-width);
+  margin-left: var(--scrollbar-margin);
+  position: relative;
+  background-color: var(--bg-color);
+  background-image: url('./scroll_bg.png');
+  background-size: 100% 100%;
+}
+
+.map-scrollbar > .button {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  top: 0%;
+}
