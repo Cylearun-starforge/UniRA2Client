@@ -21,7 +21,8 @@
   "dependencies": {
     "vue": "^3.2.45",
     "less": "~4.2.0",
-    "@floating-ui/vue": "~1.0.2"
+    "@floating-ui/vue": "~1.0.2",
+    "vitest": "~0.34.3"
   },
   "devDependencies": {
     "@types/node": "18.17.1",
