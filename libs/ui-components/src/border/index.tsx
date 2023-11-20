@@ -39,6 +39,10 @@ const props = {
       },
     ] satisfies BorderStyle[],
   },
+  overflow: {
+    type: String,
+    default: 'initial',
+  },
 } satisfies Record<string, Prop<unknown>>;
 
 export type CyBorderProps = ExtractPropTypes<typeof props>;
@@ -194,9 +198,9 @@ const CyBorder = defineComponent({
     };
   },
   render() {
-    const { $slots, polygons, svgSize } = this;
+    const { $slots, polygons, svgSize, overflow } = this;
     return (
-      <div ref="rootRef" class={style.root}>
+      <div ref="rootRef" class={style['border-root']} style={{ overflow }}>
         {$slots.default?.()}
         <svg width={svgSize.width} height={svgSize.height} class={style.canvas}>
           {polygons?.map(({ width, color, points }) => (

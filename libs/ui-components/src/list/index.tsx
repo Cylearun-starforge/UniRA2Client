@@ -9,6 +9,7 @@ import {
   ref,
 } from 'vue';
 import { getElementPosition } from '@/utils/get-element-position';
+import { CyBorder } from '@/index';
 import style from './list.module.less';
 import scrollButtonImg from './scroll_button.png';
 
@@ -175,73 +176,52 @@ const CyList = defineComponent({
         class={style['map-list-root']}
         onWheel={onScroll}
         style={{
-          height: `${heightData.list}px`,
-          width: widthData.list,
           ...cssVars,
         }}
       >
-        <div
-          class={style['map-list-container']}
-          style={{ width: `${widthData.listContent}px` }}
-        >
+        <CyBorder overflow="hidden">
           <div
-            class={style['map-list']}
+            class={style['map-list-container']}
             style={{
+              width: `${widthData.listContent}px`,
               height: heightData.listContent,
             }}
           >
-            <div ref="mapViewRef" class={style['map-list-view']}>
-              <div
-                class={style['map-list-content']}
-                ref="mapListRef"
-                style={{ top: `-${state.scrollPercentage}%` }}
-              >
-                {$slots.default?.()}
+            <div
+              class={style['map-list']}
+              style={{
+                height: heightData.listContent,
+              }}
+            >
+              <div ref="mapViewRef" class={style['map-list-view']}>
+                <div
+                  class={style['map-list-content']}
+                  ref="mapListRef"
+                  style={{ top: `-${state.scrollPercentage}%` }}
+                >
+                  {$slots.default?.()}
+                </div>
               </div>
             </div>
-          </div>
 
-          <div
-            class={style['map-list-footer']}
-            style={{
-              height: heightData.footer,
-              transform: heightData.footerTransform,
-            }}
-          />
-          <svg
-            viewBox={`0 0 ${widthData.listContent} ${heightData.svg}`}
-            width={widthData.listContent}
-            height={heightData.svg}
-            class={style['map-list-round']}
-          >
-            <polygon
-              points={`0,0 ${widthData.listContent},0 ${
-                widthData.listContent
-              },${heightData.svg - ROUND_HEIGHT} ${
-                widthData.listContent - ROUND_WIDTH
-              },${heightData.svg} 0,${heightData.svg}`}
-              fill="none"
-              stroke="rgb(1, 141, 177)"
-              stroke-width={4}
+            <div
+              class={style['map-list-footer']}
+              style={{
+                height: heightData.footer,
+                transform: heightData.footerTransform,
+              }}
             />
-            <polygon
-              points={`4,4 ${widthData.listContent - 4},4 ${
-                widthData.listContent - 4
-              },${heightData.svg - ROUND_HEIGHT - 4} ${
-                widthData.listContent - ROUND_WIDTH - 4
-              },${heightData.svg - 4} 4,${heightData.svg - 4}`}
-              fill="none"
-              stroke="rgb(1, 141, 177)"
-              stroke-width={2}
-            />
-          </svg>
-        </div>
+          </div>
+        </CyBorder>
         <div
           class={style['map-scrollbar']}
           ref="scrollbarRef"
           onMouseup={stopDrag}
           onMouseleave={stopDrag}
-          style={{ height: `${heightData.list}px`, width: widthData.scrollbar }}
+          style={{
+            height: `${heightData.list}px`,
+            width: widthData.scrollbar,
+          }}
         >
           <img
             class={style.button}
