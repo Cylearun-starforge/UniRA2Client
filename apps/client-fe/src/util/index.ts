@@ -1,1 +1,1 @@
-export * from "./getElementPosition";
+export * from './getElementPosition';
