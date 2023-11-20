@@ -37,6 +37,14 @@ const props = {
         width: 2,
         color: 'rgb(1, 141, 177)',
       },
+      {
+        width: 2,
+        color: 'transparent',
+      },
+      {
+        width: 2,
+        color: 'rgb(1, 141, 177)',
+      },
     ] satisfies BorderStyle[],
   },
   overflow: {
