@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import BackButton from '@/components/back-button.vue';
 import { RouteLocationRaw } from 'vue-router';
 import { CyDropdownSelector, CyList, CyBorder } from '@cylearun/components';
 import { useWindowSize } from '@vueuse/core';
@@ -16,12 +15,12 @@ const { height } = useWindowSize()
       name: 'left',
       width: 400,
     }, {
-      name: 'default',
+      name: 'main',
       width: 'flex1',
     }, {
       name: 'right',
-      width: 148,
-    },]" :gap="12">
+      width: 140,
+    }]" :gap="12">
       <template #left>
         <div class="mode-list-view">
           <div class="mode-selector">
@@ -36,14 +35,27 @@ const { height } = useWindowSize()
           </cy-list>
         </div>
       </template>
-      <template>
-        <div></div>
+      <template #main>
+        <div class="mode-description">
+          <div>
+            <img class="image-border" src='/game/map_preview_box.png' />
+            <img class="image" src="/game/map/preview/mode.png" alt="">
+          </div>
+          <cy-border :top-corner-size="20" class="text" redraw-border-on-resize>
+            <div>
+              这是一段测试文本 <br />
+              你干嘛，哎呦
+            </div>
+          </cy-border>
+        </div>
       </template>
       <template #right class="right-side-info">
-        <cy-border class="back-button" :top-corner-size="20">
-          BACK
-        </cy-border>
-        <cy-border class="feature" :top-corner-size="20" v-for="n in [1, 2, 3, 4]">
+        <router-link :to="{ name: 'skirmish' }">
+          <cy-border class="back-button" :top-corner-size="20">
+            BACK
+          </cy-border>
+        </router-link>
+        <cy-border class="feature" :top-corner-size="0" :bottom-corner-size="0" v-for="n in [1, 2, 3, 4]">
           FEATURE {{ n }}
         </cy-border>
 
@@ -80,6 +92,37 @@ const { height } = useWindowSize()
   align-items: center;
 }
 
+.mode-description {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 40px);
+}
+
+.mode-description .image-border {
+  width: 100%;
+  object-fit: contain;
+  z-index: 10;
+
+}
+
+.mode-description .image {
+  position: absolute;
+  top: 50%;
+  object-fit: contain;
+  left: 50%;
+  height: calc(100% - 24px);
+  width: calc(100% - 24px);
+  transform: translate(-50%, -50%);
+}
+
+.mode-description .text {
+  width: 100%;
+  color: rgb(134, 200, 217);
+  flex: 1;
+  padding: 20px;
+  margin-top: 20px;
+}
+
 .map-mode-item {
   height: 100px;
   width: 100%;
@@ -97,10 +140,17 @@ const { height } = useWindowSize()
 }
 
 .back-button {
-  width: 128px;
+  width: 122px;
   height: 156px;
   margin-bottom: 120px;
   padding: 20px;
+  background-image: url('/game/change_map_bg.png');
+  background-position: center;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+  color: rgb(134, 200, 217);
+
 }
 
 .feature {

@@ -5,12 +5,14 @@ import {
   Ref,
   computed,
   defineComponent,
+  onUpdated,
   ref,
   toRef,
   watch,
 } from 'vue';
 
 import style from './style.module.less';
+import { useEventListener, useResizeObserver } from '@vueuse/core';
 
 interface CornerSize {
   width: number;
@@ -50,6 +52,10 @@ const props = {
   overflow: {
     type: String,
     default: 'initial',
+  },
+  redrawBorderOnResize: {
+    type: Boolean,
+    default: false,
   },
 } satisfies Record<string, Prop<unknown>>;
 
@@ -179,6 +185,7 @@ const CyBorder = defineComponent({
 
     const rootRef = ref<HTMLDivElement>();
     const svgSize = ref({ width: 0, height: 0 });
+    const fakeDep = ref(0);
 
     watch(rootRef, (root) => {
       if (!root) {
@@ -190,6 +197,7 @@ const CyBorder = defineComponent({
     });
 
     const polygons = computed(() => {
+      fakeDep.value;
       return computedPolygons(
         props.borders,
         rootRef.value?.clientWidth ?? 0,
@@ -198,6 +206,12 @@ const CyBorder = defineComponent({
         topCornerSize.value
       );
     });
+
+    if (props.redrawBorderOnResize) {
+      useResizeObserver(rootRef, () => {
+        fakeDep.value++;
+      });
+    }
 
     return {
       rootRef,

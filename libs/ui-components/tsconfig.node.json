@@ -1,6 +1,7 @@
 {
   "extends": "@cylearun/tsconfig/node",
   "include": [
-    "vite.config.ts"
+    "vite.config.ts",
+    "package.json"
   ]
 }
