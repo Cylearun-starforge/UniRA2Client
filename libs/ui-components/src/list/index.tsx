@@ -86,7 +86,6 @@ const CyList = defineComponent({
       canMove: false,
     });
     const updateScrollbarPosition = () => {
-      console.log('resizing');
       state.position = getElementPosition(scrollbarRef.value!);
     };
 

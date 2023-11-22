@@ -5,6 +5,7 @@ import {
   defineComponent,
   reactive,
   ref,
+  toRefs,
 } from 'vue';
 
 import {
@@ -61,7 +62,14 @@ const CyPopover = defineComponent({
       }
     };
 
-    return { popoverFloatingStyle, states, handleMouseEnter, handleMouseLeave };
+    return {
+      popoverFloatingStyle,
+      states,
+      handleMouseEnter,
+      handleMouseLeave,
+      triggerRef,
+      popoverRef,
+    };
   },
   render() {
     const {
@@ -74,7 +82,6 @@ const CyPopover = defineComponent({
     return (
       <div
         ref="triggerRef"
-        style={{ position: 'relative' }}
         onMouseenter={handleMouseEnter}
         onMouseleave={handleMouseLeave}
         class={style.trigger}
