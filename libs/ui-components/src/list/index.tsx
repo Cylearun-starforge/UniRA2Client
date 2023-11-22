@@ -178,7 +178,12 @@ const CyList = defineComponent({
           ...cssVars,
         }}
       >
-        <CyBorder overflow="hidden">
+        <CyBorder
+          overflow="hidden"
+          topCornerSize={{ height: ROUND_HEIGHT, width: ROUND_WIDTH }}
+          bottomCornerSize={{ height: ROUND_HEIGHT, width: ROUND_WIDTH }}
+          redrawBorderOnResize
+        >
           <div
             class={style['map-list-container']}
             style={{

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouteLocationRaw } from 'vue-router';
-import { CyDropdownSelector, CyList, CyBorder } from '@cylearun/components';
+import { CyDropdownSelector, CyList, CyBorder, CyPopover, CyInput } from '@cylearun/components';
 import { useWindowSize } from '@vueuse/core';
 import ColumnsLayout from '@/layouts/columns-layout';
 const returnRoute: RouteLocationRaw = {
@@ -15,7 +15,7 @@ const { height } = useWindowSize()
       name: 'left',
       width: 400,
     }, {
-      name: 'main',
+      name: 'default',
       width: 'flex1',
     }, {
       name: 'right',
@@ -25,39 +25,48 @@ const { height } = useWindowSize()
         <div class="mode-list-view">
           <div class="mode-selector">
             mode:
-            <cy-dropdown-selector :candidates="options" :value="'playercount'" />
+            <cy-input class="filter" />
           </div>
-          <cy-list :width="400" :height="height - 40">
-            <cy-border :top-corner-size="10" class="map-mode-item"
+          <cy-list :width="400" :height="height - 80 - 40">
+            <cy-border :top-corner-size="0" :bottom-corner-size="0" class="map-mode-item"
               v-for="name in ['foo', 'bar', 'baz', 'foo', 'bar', 'baz', 'foo', 'bar', 'baz', 'foo', 'bar', 'baz', 'foo', 'bar', 'baz']">
               <div class="map-mode-item-content">{{ name }}</div>
             </cy-border>
           </cy-list>
         </div>
       </template>
-      <template #main>
-        <div class="mode-description">
-          <div>
-            <img class="image-border" src='/game/map_preview_box.png' />
-            <img class="image" src="/game/map/preview/mode.png" alt="">
-          </div>
-          <cy-border :top-corner-size="20" class="text" redraw-border-on-resize>
-            <div>
-              这是一段测试文本 <br />
-              你干嘛，哎呦
-            </div>
-          </cy-border>
+      <div class="mode-description">
+        <div>
+          <img class="image-border" src='/game/map_preview_box.png' />
+          <img class="image" src="/game/map/preview/mode.png" alt="">
         </div>
-      </template>
+        <cy-border :top-corner-size="20" class="text" redraw-border-on-resize>
+          <div>
+            这是一段测试文本 <br />
+            你干嘛，哎呦
+          </div>
+        </cy-border>
+      </div>
       <template #right class="right-side-info">
         <router-link :to="{ name: 'skirmish' }">
           <cy-border class="back-button" :top-corner-size="20">
             BACK
           </cy-border>
         </router-link>
-        <cy-border class="feature" :top-corner-size="0" :bottom-corner-size="0" v-for="n in [1, 2, 3, 4]">
-          FEATURE {{ n }}
-        </cy-border>
+        <cy-popover v-for="n in [1, 2, 3, 4]">
+          <template #trigger>
+            <cy-border class="feature" :top-corner-size="0" :bottom-corner-size="0">
+              FEATURE {{ n }}
+            </cy-border>
+          </template>
+          <div style="{{ width: '100px', height: '150px','background-color': 'rgba(0,0,0,0.9)' }}">
+            A very long description for feature {{ n }}<br />
+            A very long description for feature {{ n }}<br />
+            A very long description for feature {{ n }}<br />
+            A very long description for feature {{ n }}<br />
+          </div>
+        </cy-popover>
+
 
       </template>
     </columns-layout>
@@ -72,7 +81,7 @@ const { height } = useWindowSize()
   left: 0;
   width: 100vw;
   height: 100vh;
-  padding: 20px;
+  padding: 40px;
 
   background-color: rgba(0, 0, 0, 0.7);
 }
@@ -83,7 +92,12 @@ const { height } = useWindowSize()
 
 .mode-selector {
   display: flex;
-  height: 20px;
+  height: 28px;
+  margin-bottom: 12px;
+}
+
+.filter {
+  flex: 1;
 }
 
 .mode-list-view {
@@ -95,7 +109,7 @@ const { height } = useWindowSize()
 .mode-description {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 80px);
 }
 
 .mode-description .image-border {
@@ -154,9 +168,9 @@ const { height } = useWindowSize()
 }
 
 .feature {
-  width: 128px;
-  height: 100px;
+  width: 100px;
+  height: 80px;
   margin-bottom: 12px;
-  padding: 20px;
+  padding: 12px;
 }
 </style>
