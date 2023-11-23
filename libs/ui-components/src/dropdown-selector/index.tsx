@@ -1,6 +1,7 @@
 import { defineComponent, PropType, ref, StyleValue, toRefs } from 'vue';
 import style from './style.module.less';
 import { useFloating, flip, shift, autoUpdate, offset } from '@floating-ui/vue';
+import { CyBorder } from '..';
 type DropdownCandidate<T> = {
   display: string;
   value: T;
@@ -83,10 +84,14 @@ const CyDropdownSelector = defineComponent({
         class={[style['cy-dropdown-selector-root']]}
         style={propStyle}
       >
-        <div class={[style['dropdown-selected-item'], 'flex']}>
-          {candidates.find((item) => compare!(item.value, value))?.display}
-        </div>
-        <button class={style['dropdown-button']} onClick={openMenu}></button>
+        <CyBorder topCornerSize={0} bottomCornerSize={0}>
+          <div class={[style['dropdown-selected-item'], 'flex']}>
+            {candidates.find((item) => compare!(item.value, value))?.display}
+          </div>
+        </CyBorder>
+        <CyBorder topCornerSize={0} bottomCornerSize={0}>
+          <button class={style['dropdown-button']} onClick={openMenu}></button>
+        </CyBorder>
         {showMenu && (
           <div
             ref="floating"

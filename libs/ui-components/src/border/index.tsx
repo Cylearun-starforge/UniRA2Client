@@ -57,6 +57,10 @@ const props = {
     type: Boolean,
     default: false,
   },
+  width: {
+    type: [String, Number] as PropType<number | 'fit-content' | `${number}%`>,
+    default: 'fit-content',
+  },
 } satisfies Record<string, Prop<unknown>>;
 
 export type CyBorderProps = ExtractPropTypes<typeof props>;
@@ -213,16 +217,24 @@ const CyBorder = defineComponent({
       });
     }
 
+    const width =
+      typeof props.width === 'string' ? props.width : `${props.width}px`;
+
     return {
+      width,
       rootRef,
       svgSize,
       polygons,
     };
   },
   render() {
-    const { $slots, polygons, svgSize, overflow } = this;
+    const { $slots, polygons, svgSize, overflow, width } = this;
     return (
-      <div ref="rootRef" class={style['border-root']} style={{ overflow }}>
+      <div
+        ref="rootRef"
+        class={style['border-root']}
+        style={{ overflow, width }}
+      >
         {$slots.default?.()}
         <svg width={svgSize.width} height={svgSize.height} class={style.canvas}>
           {polygons?.map(({ width, color, points }) => (

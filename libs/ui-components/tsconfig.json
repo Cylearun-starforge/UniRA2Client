@@ -12,7 +12,10 @@
     },
     "composite": true,
     "jsxImportSource": "vue",
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "types": [
+      "vitest"
+    ]
   },
   "include": [
     "src/**/*.ts",

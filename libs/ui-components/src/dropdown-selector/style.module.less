@@ -18,7 +18,6 @@
   padding: 0 12px;
   align-items: center;
   font-weight: bolder;
-  .bordered();
   border-radius: 2px;
 }
 
@@ -32,7 +31,6 @@
   right: 0;
   top: 50%;
   transform: translate(50%, -50%);
-  .bordered();
   box-sizing: content-box;
   padding: 0;
 
@@ -50,7 +48,11 @@
     --top-left-point: var(--icon-padding) var(--icon-padding);
     --top-right-point: calc(100% - var(--icon-padding)) var(--icon-padding);
     --bottom-point: 50% calc(100% - var(--icon-padding));
-    clip-path: polygon(var(--top-left-point), var(--top-right-point), var(--bottom-point));
+    clip-path: polygon(
+      var(--top-left-point),
+      var(--top-right-point),
+      var(--bottom-point)
+    );
 
     // --top-point: 50% var(--padding);
     // --bottom-left-point: var(--padding) calc(100% - var(--padding));

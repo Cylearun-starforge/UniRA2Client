@@ -28,7 +28,7 @@ const { height } = useWindowSize()
             <cy-input class="filter" />
           </div>
           <cy-list :width="400" :height="height - 80 - 40">
-            <cy-border :top-corner-size="0" :bottom-corner-size="0" class="map-mode-item"
+            <cy-border :top-corner-size="0" :bottom-corner-size="0" class="map-mode-item" width="100%"
               v-for="name in ['foo', 'bar', 'baz', 'foo', 'bar', 'baz', 'foo', 'bar', 'baz', 'foo', 'bar', 'baz', 'foo', 'bar', 'baz']">
               <div class="map-mode-item-content">{{ name }}</div>
             </cy-border>
@@ -40,7 +40,7 @@ const { height } = useWindowSize()
           <img class="image-border" src='/game/map_preview_box.png' />
           <img class="image" src="/game/map/preview/mode.png" alt="">
         </div>
-        <cy-border :top-corner-size="20" class="text" redraw-border-on-resize>
+        <cy-border :top-corner-size="20" class="text" redraw-border-on-resize width="100%">
           <div>
             这是一段测试文本 <br />
             你干嘛，哎呦
@@ -49,7 +49,7 @@ const { height } = useWindowSize()
       </div>
       <template #right class="right-side-info">
         <router-link :to="{ name: 'skirmish' }">
-          <cy-border class="back-button" :top-corner-size="20">
+          <cy-border class="back-button" :top-corner-size="20" width="100%">
             BACK
           </cy-border>
         </router-link>

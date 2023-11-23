@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "test": "vitest"
   },
   "author": "",
   "license": "ISC",
@@ -22,7 +23,8 @@
     "vue": "^3.2.45",
     "less": "~4.2.0",
     "@vueuse/core": "~10.6.1",
-    "@floating-ui/vue": "~1.0.2"
+    "@floating-ui/vue": "~1.0.2",
+    "normalize.css": "~8.0.1"
   },
   "devDependencies": {
     "@types/node": "18.17.1",
