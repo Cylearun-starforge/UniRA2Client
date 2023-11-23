@@ -9,9 +9,7 @@ import AlphaButton from '@/components/alpha-button.vue';
 import GameOptions from '@/components/game/game-options.vue';
 import { useSkirmish } from '@/stores/skirmish';
 import SatelliteView from './map-preview-view.vue';
-import MapSelectView from './map-select-view.vue';
 import { reactive } from 'vue';
-import { useMapStore } from '@/stores/map-store';
 import { addPlayers } from '@/api';
 import { PlayerDto } from '@/types/dto';
 import { useRouter } from 'vue-router';
@@ -74,7 +72,7 @@ const router = useRouter()
 const openMapSelector = () => {
   localState.changingMap = true
   router.push({
-    name: 'skirmish-map-selection'
+    name: 'skirmish-mode-selection'
   })
 }
 </script>

@@ -25,8 +25,8 @@ const router = createRouter({
       component: SkirmishView,
       children: [
         {
-          path: 'map-selection',
-          name: 'skirmish-map-selection',
+          path: 'mode-selection',
+          name: 'skirmish-mode-selection',
           component: SkirmishMapSelectionView,
         },
       ],

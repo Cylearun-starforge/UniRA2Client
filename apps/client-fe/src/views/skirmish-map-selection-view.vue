@@ -1,12 +1,27 @@
 <script setup lang="ts">
-import { RouteLocationRaw } from 'vue-router';
-import { CyDropdownSelector, CyList, CyBorder, CyPopover, CyInput } from '@cylearun/components';
+import { useRouter } from 'vue-router';
+import { CyList, CyBorder, CyPopover, CyInput } from '@cylearun/components';
 import { useWindowSize } from '@vueuse/core';
 import ColumnsLayout from '@/layouts/columns-layout';
-const returnRoute: RouteLocationRaw = {
-  name: 'skirmish'
+
+const router = useRouter();
+
+const backToSkirmish = () => {
+  router.push({
+    name: 'skirmish'
+  })
 }
-const options = [{ value: "playercount", display: "玩家数" }];
+
+const fakeMode = {
+  name: {
+    zh: '标准对战',
+    en: 'Standard',
+  },
+  image: '/game/mode/standard.png'
+};
+
+const modeList = Array.from<typeof fakeMode>({ length: 10 }).fill(fakeMode)
+
 const { height } = useWindowSize()
 </script>
 <template>
@@ -29,8 +44,12 @@ const { height } = useWindowSize()
           </div>
           <cy-list :width="400" :height="height - 80 - 40">
             <cy-border :top-corner-size="0" :bottom-corner-size="0" class="map-mode-item" width="100%"
-              v-for="name in ['foo', 'bar', 'baz', 'foo', 'bar', 'baz', 'foo', 'bar', 'baz', 'foo', 'bar', 'baz', 'foo', 'bar', 'baz']">
-              <div class="map-mode-item-content">{{ name }}</div>
+              v-for="mode in modeList">
+              <img :src="mode.image" :alt="mode.name.en">
+              <div class="map-mode-item-content">
+                {{ mode.name.zh }}
+              </div>
+
             </cy-border>
           </cy-list>
         </div>
@@ -48,11 +67,11 @@ const { height } = useWindowSize()
         </cy-border>
       </div>
       <template #right class="right-side-info">
-        <router-link :to="{ name: 'skirmish' }">
+        <button @click="backToSkirmish" class="back-button-wrapper">
           <cy-border class="back-button" :top-corner-size="20" width="100%">
             BACK
           </cy-border>
-        </router-link>
+        </button>
         <cy-popover v-for="n in [1, 2, 3, 4]">
           <template #trigger>
             <cy-border class="feature" :top-corner-size="0" :bottom-corner-size="0">
@@ -140,8 +159,15 @@ const { height } = useWindowSize()
 .map-mode-item {
   height: 100px;
   width: 100%;
-  background-color: black;
   margin-bottom: 12px;
+  position: relative;
+}
+
+.map-mode-item img {
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .map-mode-item-content {
@@ -153,10 +179,17 @@ const { height } = useWindowSize()
   flex-direction: column;
 }
 
+.back-button-wrapper {
+  width: 100%;
+  margin-bottom: 120px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+}
+
 .back-button {
   width: 122px;
   height: 156px;
-  margin-bottom: 120px;
   padding: 20px;
   background-image: url('/game/change_map_bg.png');
   background-position: center;
@@ -164,7 +197,11 @@ const { height } = useWindowSize()
   background-color: rgba(0, 0, 0, 0.5);
   background-blend-mode: darken;
   color: rgb(134, 200, 217);
+}
 
+.back-button .content {
+  width: 100%;
+  height: 100%;
 }
 
 .feature {
